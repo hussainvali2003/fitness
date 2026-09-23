@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+// Google Stitch v1.0 Design Specification
 const config: Config = {
   darkMode: "class",
   content: [
@@ -10,48 +11,69 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // GYM X Dribbble Design Theme Palette (Exact Sampled Colors)
         background: {
-          DEFAULT: "#080B11",
-          subtle: "#0E131F",
-          elevated: "#131A2B",
+          DEFAULT: "#08080a", // Obsidian Void Black
+          surface: "#111114", // Dark Matte Carbon
+          elevated: "#18181d", // Elevated Card Surface
+          glass: "rgba(17, 17, 20, 0.85)",
+        },
+        gymx: {
+          bg: "#08080a",
+          surface: "#111114",
+          elevated: "#18181d",
+          border: "#26262b",
+          orange: "#ee4d00", // Signature Fiery Orange
+          flame: "#ff5500", // Bright Flame
+          glow: "rgba(238, 77, 0, 0.4)",
+          text: "#ffffff",
+          muted: "#9ca3af",
         },
         card: {
-          DEFAULT: "#121826",
-          hover: "#182133",
-          border: "#202B3F",
+          DEFAULT: "#111114",
+          hover: "#18181d",
+          border: "#26262b",
         },
         brand: {
-          emerald: "#00F59B",
-          "emerald-dark": "#00C87A",
-          cyan: "#38BDF8",
-          blue: "#3B82F6",
-          amber: "#F59E0B",
-          rose: "#F43F5E",
-          purple: "#A855F7",
+          primary: "#ee4d00",
+          orange: "#ee4d00",
+          flame: "#ff5500",
+          glow: "rgba(238, 77, 0, 0.4)",
+          accent: "#ee4d00",
+          cyan: "#ee4d00",
+          blue: "#ee4d00",
+          emerald: "#ee4d00",
+          amber: "#ee4d00",
+          rose: "#ee4d00",
+          purple: "#ee4d00",
         },
         surface: {
-          50: "#F8FAFC",
-          100: "#F1F5F9",
-          200: "#E2E8F0",
-          300: "#CBD5E1",
-          400: "#94A3B8",
-          500: "#64748B",
-          600: "#475569",
-          700: "#334155",
-          800: "#1E293B",
-          900: "#0F172A",
-          950: "#080B11",
+          50: "#f8fafc",
+          100: "#f1f5f9",
+          200: "#e2e8f0",
+          300: "#cbd5e1",
+          400: "#9ca3af",
+          500: "#6b7280",
+          600: "#4b5563",
+          700: "#374151",
+          800: "#26262b",
+          900: "#111114",
+          950: "#08080a",
         },
       },
       borderRadius: {
+        button: "8px",
+        card: "12px",
         "2xl": "1rem",
         "3xl": "1.5rem",
         "4xl": "2rem",
       },
       boxShadow: {
-        "glow-emerald": "0 0 24px -4px rgba(0, 245, 155, 0.35)",
-        "glow-cyan": "0 0 24px -4px rgba(56, 189, 248, 0.35)",
-        "glass-card": "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
+        "stitch-btn": "0 4px 14px 0 rgba(56, 189, 248, 0.25)",
+        "stitch-card": "0 8px 32px 0 rgba(0, 0, 0, 0.45)",
+        "glow-cyan": "0 0 24px -2px rgba(56, 189, 248, 0.45)",
+        "glow-emerald": "0 0 24px -2px rgba(16, 185, 129, 0.45)",
+        "glass-card": "0 8px 32px 0 rgba(0, 0, 0, 0.45)",
       },
       animation: {
         "pulse-subtle": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",

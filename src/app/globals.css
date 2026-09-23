@@ -2,108 +2,145 @@
 @tailwind components;
 @tailwind utilities;
 
+/* GYM X Dribbble Design System Specification */
 @layer base {
   :root {
-    --bg-base: #080B11;
-    --bg-card: #121826;
-    --bg-card-hover: #182133;
-    --border-card: #202B3F;
-    --accent-emerald: #00F59B;
-    --accent-cyan: #38BDF8;
+    --bg-primary: #08080a;
+    --bg-surface: #111114;
+    --bg-elevated: #18181d;
+    --bg-glass: rgba(17, 17, 20, 0.85);
+    --brand-primary: #ee4d00;
+    --brand-flame: #ff5500;
+    --brand-glow: rgba(238, 77, 0, 0.4);
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
+    --border-subtle: #26262b;
+    --border-focus: #ee4d00;
+    --border-active: rgba(238, 77, 0, 0.4);
   }
 
   body {
-    background-color: #080B11;
-    color: #F8FAFC;
+    background-color: #08080a;
+    color: #ffffff;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
-  /* Custom athletic scrollbars */
+  /* Custom GYM X Precision Scrollbars */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #080B11;
+    background: #08080a;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1E293B;
+    background: #26262b;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: #ee4d00;
   }
 }
 
 @layer components {
+  /* GYM X Athletic Slanted Ticker Ribbon */
+  .ribbon-gymx {
+    background-color: #ee4d00;
+    color: #000000;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.6rem 1.5rem;
+    box-shadow: 0 4px 20px rgba(238, 77, 0, 0.35);
+  }
+
+  /* GYM X Dark Carbon Card */
   .glass-card {
-    background: rgba(18, 24, 38, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+    background: #111114;
+    border: 1px solid #26262b;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
   }
 
   .glass-card-interactive {
-    background: rgba(18, 24, 38, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+    background: #111114;
+    border: 1px solid #26262b;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .glass-card-interactive:hover {
-    background: rgba(24, 33, 51, 0.9);
-    border-color: rgba(0, 245, 155, 0.3);
+    background: #18181d;
+    border-color: rgba(238, 77, 0, 0.5);
     transform: translateY(-2px);
-    box-shadow: 0 12px 36px 0 rgba(0, 245, 155, 0.08);
+    box-shadow: 0 12px 36px 0 rgba(238, 77, 0, 0.2);
   }
 
-  .badge-emerald {
-    background: rgba(0, 245, 155, 0.12);
-    color: #00F59B;
-    border: 1px solid rgba(0, 245, 155, 0.25);
+  /* GYM X Primary Solid Orange Button */
+  .btn-primary,
+  .btn-stitch,
+  .btn-gymx {
+    padding: 0.625rem 1.25rem;
+    background-color: #ee4d00;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 10px;
+    box-shadow: 0 4px 18px 0 rgba(238, 77, 0, 0.4);
+    transition: all 0.15s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
   }
 
-  .badge-cyan {
-    background: rgba(56, 189, 248, 0.12);
-    color: #38BDF8;
-    border: 1px solid rgba(56, 189, 248, 0.25);
-  }
-
-  .badge-amber {
-    background: rgba(245, 158, 11, 0.12);
-    color: #F59E0B;
-    border: 1px solid rgba(245, 158, 11, 0.25);
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, #00F59B 0%, #00C87A 100%);
-    color: #080B11;
-    font-weight: 700;
-    transition: all 0.2s ease;
-    box-shadow: 0 0 20px -3px rgba(0, 245, 155, 0.4);
-  }
-
-  .btn-primary:hover {
-    background: linear-gradient(135deg, #22f7a6 0%, #02df89 100%);
-    box-shadow: 0 0 28px 0 rgba(0, 245, 155, 0.6);
+  .btn-primary:hover,
+  .btn-stitch:hover,
+  .btn-gymx:hover {
+    background-color: #ff5500;
+    box-shadow: 0 6px 24px 0 rgba(238, 77, 0, 0.6);
     transform: translateY(-1px);
   }
 
-  .btn-primary:active {
-    transform: translateY(1px);
+  .btn-primary:active,
+  .btn-stitch:active,
+  .btn-gymx:active {
+    transform: scale(0.97);
   }
 
+  /* GYM X Badges */
+  .badge-primary,
+  .badge-cyan,
+  .badge-orange,
+  .badge-gymx {
+    background: rgba(238, 77, 0, 0.15);
+    color: #ee4d00;
+    border: 1px solid rgba(238, 77, 0, 0.35);
+  }
+
+  .badge-accent,
+  .badge-emerald,
+  .badge-warning,
+  .badge-amber {
+    background: rgba(238, 77, 0, 0.15);
+    color: #ee4d00;
+    border: 1px solid rgba(238, 77, 0, 0.35);
+  }
+
+  .text-glow-primary,
+  .text-glow-cyan,
+  .text-glow-orange {
+    text-shadow: 0 0 16px rgba(238, 77, 0, 0.6);
+  }
+
+  .text-glow-accent,
   .text-glow-emerald {
-    text-shadow: 0 0 12px rgba(0, 245, 155, 0.5);
-  }
-
-  .text-glow-cyan {
-    text-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+    text-shadow: 0 0 16px rgba(238, 77, 0, 0.6);
   }
 }

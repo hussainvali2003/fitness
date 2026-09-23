@@ -80,7 +80,7 @@ export default function SettingsPage() {
       {/* Header */}
       <div>
         <div className="flex items-center gap-2">
-          <span className="px-2.5 py-1 rounded-lg text-xs font-black uppercase tracking-wider bg-brand-emerald/15 text-brand-emerald border border-brand-emerald/30">
+          <span className="px-2.5 py-1 rounded-lg text-xs font-black uppercase tracking-wider bg-[#ee4d00]/15 text-[#ee4d00] border border-[#ee4d00]/30">
             System &amp; Profile
           </span>
           <span className="text-xs text-surface-400 font-semibold font-mono">Preferences</span>
@@ -94,9 +94,9 @@ export default function SettingsPage() {
       </div>
 
       {/* Profile & Target Form */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-[#121826] border border-surface-800 space-y-6">
-        <div className="flex items-center gap-2 pb-3 border-b border-surface-800">
-          <User className="w-5 h-5 text-brand-emerald" />
+      <div className="p-6 sm:p-8 rounded-3xl bg-[#111114] border border-[#26262b] space-y-6">
+        <div className="flex items-center gap-2 pb-3 border-b border-[#26262b]">
+          <User className="w-5 h-5 text-[#ee4d00]" />
           <h2 className="text-sm font-black text-white uppercase tracking-wider">
             User Profile &amp; Custom Targets
           </h2>
@@ -105,91 +105,91 @@ export default function SettingsPage() {
         <form onSubmit={handleSaveProfile} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] font-bold text-surface-400 uppercase">Name</label>
+              <label className="text-[10px] font-bold text-neutral-400 uppercase">Name</label>
               <input
                 type="text"
                 value={profile.name}
                 onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-                className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-emerald"
+                className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00]"
                 required
               />
             </div>
 
             <div>
-              <label className="text-[10px] font-bold text-surface-400 uppercase">Age</label>
+              <label className="text-[10px] font-bold text-neutral-400 uppercase">Age</label>
               <input
                 type="number"
                 value={profile.age}
                 onChange={(e) => setProfile({ ...profile, age: parseInt(e.target.value, 10) || 22 })}
-                className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-emerald font-mono"
+                className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
                 required
               />
             </div>
 
             <div>
-              <label className="text-[10px] font-bold text-surface-400 uppercase">Height (cm)</label>
+              <label className="text-[10px] font-bold text-neutral-400 uppercase">Height (cm)</label>
               <input
                 type="number"
                 value={profile.heightCm}
                 onChange={(e) => setProfile({ ...profile, heightCm: parseFloat(e.target.value) || 167 })}
-                className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-emerald font-mono"
+                className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
                 required
               />
             </div>
 
             <div>
-              <label className="text-[10px] font-bold text-surface-400 uppercase">Starting Weight (kg)</label>
+              <label className="text-[10px] font-bold text-neutral-400 uppercase">Starting Weight (kg)</label>
               <input
                 type="number"
                 step="0.1"
                 value={profile.startingWeightKg}
                 onChange={(e) => setProfile({ ...profile, startingWeightKg: parseFloat(e.target.value) || 82 })}
-                className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-emerald font-mono"
+                className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
                 required
               />
             </div>
 
             <div>
-              <label className="text-[10px] font-bold text-brand-emerald uppercase">Target Goal Weight (kg)</label>
+              <label className="text-[10px] font-bold text-[#ee4d00] uppercase">Target Goal Weight (kg)</label>
               <input
                 type="number"
                 step="0.1"
                 value={profile.targetWeightKg}
                 onChange={(e) => setProfile({ ...profile, targetWeightKg: parseFloat(e.target.value) || 70 })}
-                className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-emerald font-mono"
+                className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
                 required
               />
             </div>
 
             <div>
-              <label className="text-[10px] font-bold text-brand-rose uppercase">Daily Calorie Target (kcal)</label>
+              <label className="text-[10px] font-bold text-rose-400 uppercase">Daily Calorie Target (kcal)</label>
               <input
                 type="number"
                 value={profile.calorieTarget}
                 onChange={(e) => setProfile({ ...profile, calorieTarget: parseInt(e.target.value, 10) || 1850 })}
-                className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-emerald font-mono"
+                className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
                 required
               />
             </div>
 
             <div>
-              <label className="text-[10px] font-bold text-brand-amber uppercase">Daily Protein Target (g)</label>
+              <label className="text-[10px] font-bold text-amber-400 uppercase">Daily Protein Target (g)</label>
               <input
                 type="number"
                 value={profile.proteinTargetMax}
                 onChange={(e) => setProfile({ ...profile, proteinTargetMax: parseInt(e.target.value, 10) || 135 })}
-                className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-emerald font-mono"
+                className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
                 required
               />
             </div>
 
             <div>
-              <label className="text-[10px] font-bold text-brand-cyan uppercase">Daily Step Target</label>
+              <label className="text-[10px] font-bold text-[#ee4d00] uppercase">Daily Step Target</label>
               <input
                 type="number"
                 value={profile.stepTarget}
                 onChange={(e) => setProfile({ ...profile, stepTarget: parseInt(e.target.value, 10) || 10000 })}
-                className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-emerald font-mono"
+                className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
                 required
               />
             </div>
@@ -198,14 +198,14 @@ export default function SettingsPage() {
           <div className="pt-2 flex items-center justify-between">
             <button
               type="submit"
-              className="px-6 py-3 rounded-2xl bg-gradient-to-r from-brand-emerald to-brand-cyan text-black font-extrabold text-xs uppercase tracking-wider shadow-glow-emerald hover:brightness-110 transition-all flex items-center gap-2"
+              className="px-6 py-3.5 rounded-2xl bg-[#ee4d00] text-[#08080a] font-extrabold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:brightness-110 transition-all flex items-center gap-2"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>Save Changes</span>
             </button>
 
             {saveSuccess && (
-              <span className="text-xs font-bold text-brand-emerald flex items-center gap-1.5 animate-fade-in">
+              <span className="text-xs font-bold text-[#ee4d00] flex items-center gap-1.5 animate-fade-in">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Profile updated successfully!</span>
               </span>
@@ -215,37 +215,37 @@ export default function SettingsPage() {
       </div>
 
       {/* Supabase Free Tier Configuration Card */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-[#121826] border border-surface-800 space-y-4">
-        <div className="flex items-center gap-2 pb-3 border-b border-surface-800">
-          <Database className="w-5 h-5 text-brand-cyan" />
+      <div className="p-6 sm:p-8 rounded-3xl bg-[#111114] border border-[#26262b] space-y-4">
+        <div className="flex items-center gap-2 pb-3 border-b border-[#26262b]">
+          <Database className="w-5 h-5 text-[#ee4d00]" />
           <h2 className="text-sm font-black text-white uppercase tracking-wider">
             Supabase Database &amp; Vercel Deployment
           </h2>
         </div>
 
-        <p className="text-xs text-surface-300 leading-relaxed">
+        <p className="text-xs text-neutral-300 leading-relaxed">
           Your personal application is built to connect seamlessly to <strong>Supabase (Free Tier PostgreSQL)</strong>.
           To deploy online with cloud persistence:
         </p>
 
-        <div className="p-4 rounded-2xl bg-surface-900 border border-surface-800 space-y-2 font-mono text-[11px] text-surface-300">
-          <p className="text-brand-cyan font-bold">1. Create a free Supabase project at https://supabase.com</p>
-          <p className="text-surface-400">2. Copy your PostgreSQL connection string from Project Settings &rarr; Database</p>
-          <p className="text-surface-400">3. Set <code className="text-brand-emerald">DATABASE_URL</code> in Vercel Environment Variables</p>
-          <p className="text-surface-400">4. Run <code className="text-brand-emerald">npx prisma db push</code> to sync schema</p>
+        <div className="p-4 rounded-2xl bg-[#08080a] border border-[#26262b] space-y-2 font-mono text-[11px] text-neutral-300">
+          <p className="text-[#ee4d00] font-bold">1. Create a free Supabase project at https://supabase.com</p>
+          <p className="text-neutral-400">2. Copy your PostgreSQL connection string from Project Settings &rarr; Database</p>
+          <p className="text-neutral-400">3. Set <code className="text-[#ee4d00]">DATABASE_URL</code> in Vercel Environment Variables</p>
+          <p className="text-neutral-400">4. Run <code className="text-[#ee4d00]">npx prisma db push</code> to sync schema</p>
         </div>
       </div>
 
       {/* Data Sovereignty: Export / Import & Reset */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-[#121826] border border-surface-800 space-y-4">
-        <div className="flex items-center gap-2 pb-3 border-b border-surface-800">
-          <ShieldCheck className="w-5 h-5 text-brand-emerald" />
+      <div className="p-6 sm:p-8 rounded-3xl bg-[#111114] border border-[#26262b] space-y-4">
+        <div className="flex items-center gap-2 pb-3 border-b border-[#26262b]">
+          <ShieldCheck className="w-5 h-5 text-[#ee4d00]" />
           <h2 className="text-sm font-black text-white uppercase tracking-wider">
             Data Sovereignty &amp; Backups (100% Personal Privacy)
           </h2>
         </div>
 
-        <p className="text-xs text-surface-300">
+        <p className="text-xs text-neutral-300">
           You have full ownership of your fitness logs. Export your entire workout history, body measurements, macros, and PR records as a clean JSON backup file at any time.
         </p>
 
@@ -253,13 +253,13 @@ export default function SettingsPage() {
           <button
             type="button"
             onClick={handleExportData}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-800 hover:bg-surface-700 text-brand-emerald font-bold text-xs border border-surface-700 transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#08080a] hover:bg-[#26262b] text-[#ee4d00] font-bold text-xs border border-[#26262b] transition-colors"
           >
             <Download className="w-4 h-4" />
             <span>Export JSON Backup</span>
           </button>
 
-          <label className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-800 hover:bg-surface-700 text-brand-cyan font-bold text-xs border border-surface-700 cursor-pointer transition-colors">
+          <label className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#08080a] hover:bg-[#26262b] text-[#ee4d00] font-bold text-xs border border-[#26262b] cursor-pointer transition-colors">
             <Upload className="w-4 h-4" />
             <span>Import Backup</span>
             <input
@@ -281,7 +281,7 @@ export default function SettingsPage() {
         </div>
 
         {importStatus && (
-          <p className="text-xs font-bold text-brand-cyan pt-2 animate-fade-in">{importStatus}</p>
+          <p className="text-xs font-bold text-[#ee4d00] pt-2 animate-fade-in">{importStatus}</p>
         )}
       </div>
     </div>

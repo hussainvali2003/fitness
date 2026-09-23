@@ -116,87 +116,87 @@ export default function RecoveryPage() {
 
       {/* 4 Summary Stat Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-3xl bg-[#121826] border border-surface-800 space-y-1">
-          <span className="text-[10px] text-surface-400 font-bold uppercase">Sleep Duration</span>
-          <p className="text-2xl font-black text-brand-purple font-mono">
+        <div className="p-5 rounded-3xl bg-[#111114] border border-[#26262b] space-y-1">
+          <span className="text-[10px] text-neutral-400 font-bold uppercase">Sleep Duration</span>
+          <p className="text-2xl font-black text-[#ee4d00] font-mono">
             {Math.floor(latestSleep.durationHours)}h {Math.round((latestSleep.durationHours % 1) * 60)}m
           </p>
-          <p className="text-[11px] text-brand-emerald font-semibold">Target: 7.5 hours</p>
+          <p className="text-[11px] text-[#10b981] font-semibold">Target: 7.5 hours</p>
         </div>
 
-        <div className="p-5 rounded-3xl bg-[#121826] border border-surface-800 space-y-1">
-          <span className="text-[10px] text-surface-400 font-bold uppercase">Readiness Score</span>
-          <p className="text-2xl font-black text-brand-emerald font-mono">{readinessPct}%</p>
-          <p className="text-[10px] text-surface-400">Optimal for Morning Lifting</p>
+        <div className="p-5 rounded-3xl bg-[#111114] border border-[#26262b] space-y-1">
+          <span className="text-[10px] text-neutral-400 font-bold uppercase">Readiness Score</span>
+          <p className="text-2xl font-black text-[#ee4d00] font-mono">{readinessPct}%</p>
+          <p className="text-[10px] text-neutral-400">Optimal for Morning Lifting</p>
         </div>
 
-        <div className="p-5 rounded-3xl bg-[#121826] border border-surface-800 space-y-1">
-          <span className="text-[10px] text-surface-400 font-bold uppercase">Energy Level</span>
-          <p className="text-2xl font-black text-brand-amber font-mono">{latestRecovery.energyScore} / 5</p>
-          <p className="text-[11px] text-surface-400">Subjective CNS energy</p>
+        <div className="p-5 rounded-3xl bg-[#111114] border border-[#26262b] space-y-1">
+          <span className="text-[10px] text-neutral-400 font-bold uppercase">Energy Level</span>
+          <p className="text-2xl font-black text-amber-400 font-mono">{latestRecovery.energyScore} / 5</p>
+          <p className="text-[11px] text-neutral-400">Subjective CNS energy</p>
         </div>
 
-        <div className="p-5 rounded-3xl bg-[#121826] border border-surface-800 space-y-1">
-          <span className="text-[10px] text-surface-400 font-bold uppercase">Muscle Soreness</span>
-          <p className="text-2xl font-black text-brand-cyan font-mono">{latestRecovery.sorenessScore} / 5</p>
-          <p className="text-[11px] text-surface-400">1: Fresh &middot; 5: High DOMS</p>
+        <div className="p-5 rounded-3xl bg-[#111114] border border-[#26262b] space-y-1">
+          <span className="text-[10px] text-neutral-400 font-bold uppercase">Muscle Soreness</span>
+          <p className="text-2xl font-black text-[#ee4d00] font-mono">{latestRecovery.sorenessScore} / 5</p>
+          <p className="text-[11px] text-neutral-400">1: Fresh &middot; 5: High DOMS</p>
         </div>
       </div>
 
       {/* Sleep & Recovery Log Form */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left: Sleep Logging */}
-        <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl bg-[#121826] border border-surface-800 space-y-4">
+        <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl bg-[#111114] border border-[#26262b] space-y-4">
           <h3 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2">
-            <Moon className="w-4 h-4 text-brand-purple" />
+            <Moon className="w-4 h-4 text-[#ee4d00]" />
             <span>Log Sleep Session</span>
           </h3>
 
           <form onSubmit={handleSaveLogs} className="space-y-4">
             <div>
-              <label className="text-[10px] font-bold text-surface-400 uppercase">Date</label>
+              <label className="text-[10px] font-bold text-neutral-400 uppercase">Date</label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-purple font-mono"
+                className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
                 required
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-[10px] font-bold text-surface-400 uppercase">Bedtime</label>
+                <label className="text-[10px] font-bold text-neutral-400 uppercase">Bedtime</label>
                 <input
                   type="time"
                   value={bedtime}
                   onChange={(e) => setBedtime(e.target.value)}
-                  className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-purple font-mono"
+                  className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
                   required
                 />
               </div>
 
               <div>
-                <label className="text-[10px] font-bold text-surface-400 uppercase">Wake Time</label>
+                <label className="text-[10px] font-bold text-neutral-400 uppercase">Wake Time</label>
                 <input
                   type="time"
                   value={wakeTime}
                   onChange={(e) => setWakeTime(e.target.value)}
-                  className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-purple font-mono"
+                  className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
                   required
                 />
               </div>
             </div>
 
-            <div className="p-3 rounded-2xl bg-surface-900 border border-surface-800 flex items-center justify-between">
-              <span className="text-xs text-surface-300 font-medium">Calculated Duration:</span>
-              <span className="font-mono font-black text-brand-purple text-base">
+            <div className="p-3 rounded-2xl bg-[#08080a] border border-[#26262b] flex items-center justify-between">
+              <span className="text-xs text-neutral-300 font-medium">Calculated Duration:</span>
+              <span className="font-mono font-black text-[#ee4d00] text-base">
                 {Math.floor(currentDuration)}h {Math.round((currentDuration % 1) * 60)}m
               </span>
             </div>
 
             <div>
-              <label className="text-[10px] font-bold text-surface-400 uppercase mb-1 block">Sleep Quality</label>
+              <label className="text-[10px] font-bold text-neutral-400 uppercase mb-1 block">Sleep Quality</label>
               <div className="flex items-center gap-1.5">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
@@ -205,8 +205,8 @@ export default function RecoveryPage() {
                     onClick={() => setQuality(star)}
                     className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${
                       quality === star
-                        ? "bg-brand-purple text-white shadow-glow-cyan"
-                        : "bg-surface-900 text-surface-400 hover:text-white border border-surface-800"
+                        ? "bg-[#ee4d00] text-[#08080a] shadow-[0_0_12px_rgba(56,189,248,0.3)] font-black"
+                        : "bg-[#08080a] text-neutral-400 hover:text-white border border-[#26262b]"
                     }`}
                   >
                     {star} ★
@@ -217,14 +217,14 @@ export default function RecoveryPage() {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-2xl bg-gradient-to-r from-brand-purple to-brand-cyan text-black font-extrabold text-xs uppercase tracking-wider shadow-glow-cyan hover:brightness-110 transition-all flex items-center justify-center gap-2"
+              className="w-full py-3.5 rounded-2xl bg-[#ee4d00] text-[#08080a] font-extrabold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:brightness-110 transition-all flex items-center justify-center gap-2"
             >
-              <Plus className="w-4 h-4 fill-black" />
+              <Plus className="w-4 h-4 fill-current" />
               <span>Save Sleep &amp; Recovery</span>
             </button>
 
             {savedSuccess && (
-              <p className="text-xs font-bold text-brand-emerald text-center flex items-center justify-center gap-1 animate-fade-in">
+              <p className="text-xs font-bold text-[#ee4d00] text-center flex items-center justify-center gap-1 animate-fade-in">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Recovery log saved!</span>
               </p>
@@ -233,9 +233,9 @@ export default function RecoveryPage() {
         </div>
 
         {/* Right: Subjective Recovery & Readiness */}
-        <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl bg-[#121826] border border-surface-800 space-y-5">
+        <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl bg-[#111114] border border-[#26262b] space-y-5">
           <h3 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2">
-            <Zap className="w-4 h-4 text-brand-amber" />
+            <Zap className="w-4 h-4 text-amber-400" />
             <span>Subjective Readiness Metrics (1–5)</span>
           </h3>
 
@@ -243,8 +243,8 @@ export default function RecoveryPage() {
             {/* Energy */}
             <div>
               <div className="flex items-center justify-between text-xs mb-1.5">
-                <span className="font-bold text-surface-300">Energy &amp; Drive</span>
-                <span className="font-mono font-bold text-brand-amber">{energyScore} / 5</span>
+                <span className="font-bold text-neutral-300">Energy &amp; Drive</span>
+                <span className="font-mono font-bold text-amber-400">{energyScore} / 5</span>
               </div>
               <div className="flex items-center gap-1.5">
                 {[1, 2, 3, 4, 5].map((val) => (
@@ -253,7 +253,7 @@ export default function RecoveryPage() {
                     type="button"
                     onClick={() => setEnergyScore(val)}
                     className={`flex-1 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                      energyScore === val ? "bg-brand-amber text-black" : "bg-surface-900 text-surface-400 border border-surface-800"
+                      energyScore === val ? "bg-amber-400 text-black font-black" : "bg-[#08080a] text-neutral-400 border border-[#26262b]"
                     }`}
                   >
                     {val}
@@ -265,8 +265,8 @@ export default function RecoveryPage() {
             {/* Muscle Soreness */}
             <div>
               <div className="flex items-center justify-between text-xs mb-1.5">
-                <span className="font-bold text-surface-300">Muscle Soreness (DOMS)</span>
-                <span className="font-mono font-bold text-brand-cyan">{sorenessScore} / 5</span>
+                <span className="font-bold text-neutral-300">Muscle Soreness (DOMS)</span>
+                <span className="font-mono font-bold text-[#ee4d00]">{sorenessScore} / 5</span>
               </div>
               <div className="flex items-center gap-1.5">
                 {[1, 2, 3, 4, 5].map((val) => (
@@ -275,7 +275,7 @@ export default function RecoveryPage() {
                     type="button"
                     onClick={() => setSorenessScore(val)}
                     className={`flex-1 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                      sorenessScore === val ? "bg-brand-cyan text-black" : "bg-surface-900 text-surface-400 border border-surface-800"
+                      sorenessScore === val ? "bg-[#ee4d00] text-[#08080a] font-black" : "bg-[#08080a] text-neutral-400 border border-[#26262b]"
                     }`}
                   >
                     {val}
@@ -287,8 +287,8 @@ export default function RecoveryPage() {
             {/* Stress */}
             <div>
               <div className="flex items-center justify-between text-xs mb-1.5">
-                <span className="font-bold text-surface-300">Life / Work Stress</span>
-                <span className="font-mono font-bold text-purple-400">{stressScore} / 5</span>
+                <span className="font-bold text-neutral-300">Life / Work Stress</span>
+                <span className="font-mono font-bold text-indigo-400">{stressScore} / 5</span>
               </div>
               <div className="flex items-center gap-1.5">
                 {[1, 2, 3, 4, 5].map((val) => (
@@ -297,7 +297,7 @@ export default function RecoveryPage() {
                     type="button"
                     onClick={() => setStressScore(val)}
                     className={`flex-1 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                      stressScore === val ? "bg-purple-500 text-white" : "bg-surface-900 text-surface-400 border border-surface-800"
+                      stressScore === val ? "bg-indigo-500 text-white font-black" : "bg-[#08080a] text-neutral-400 border border-[#26262b]"
                     }`}
                   >
                     {val}
@@ -308,13 +308,13 @@ export default function RecoveryPage() {
 
             {/* Notes */}
             <div>
-              <label className="text-[10px] font-bold text-surface-400 uppercase">Recovery Note</label>
+              <label className="text-[10px] font-bold text-neutral-400 uppercase">Recovery Note</label>
               <input
                 type="text"
                 placeholder="e.g. Legs slightly tight from Wednesday, shoulder mobility 100%"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
+                className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00]"
               />
             </div>
           </div>

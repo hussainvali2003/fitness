@@ -22,12 +22,12 @@ export const FallbackBody2D: React.FC<FallbackBody2DProps> = ({
 
   const getMuscleColor = (muscle: MuscleGroup) => {
     if (selectedMuscle === muscle || primaryMuscle === muscle) {
-      return "fill-brand-emerald stroke-brand-emerald filter drop-shadow-[0_0_8px_#00F59B]";
+      return "fill-[#ee4d00] stroke-[#ee4d00] filter drop-shadow-[0_0_8px_#ee4d00]";
     }
     if (secondaryMuscles.includes(muscle)) {
-      return "fill-brand-cyan stroke-brand-cyan filter drop-shadow-[0_0_6px_#38BDF8]";
+      return "fill-[#ff7700] stroke-[#ff7700] filter drop-shadow-[0_0_6px_#ff7700]";
     }
-    return "fill-surface-800 stroke-surface-700 hover:fill-surface-700 transition-colors";
+    return "fill-[#1b1b22] stroke-[#26262b] hover:fill-[#26262b] transition-colors";
   };
 
   const handleMuscleClick = (muscle: MuscleGroup) => {
@@ -35,16 +35,16 @@ export const FallbackBody2D: React.FC<FallbackBody2DProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center bg-[#121826]/70 backdrop-blur-md rounded-2xl p-4 border border-surface-800 w-full max-w-md mx-auto">
+    <div className="flex flex-col items-center bg-[#111114] backdrop-blur-md rounded-2xl p-4 border border-[#26262b] w-full max-w-md mx-auto">
       {/* Front / Back Toggle */}
-      <div className="flex items-center gap-2 mb-4 bg-surface-900 p-1 rounded-xl border border-surface-800">
+      <div className="flex items-center gap-2 mb-4 bg-[#08080a] p-1 rounded-xl border border-[#26262b]">
         <button
           type="button"
           onClick={() => setActiveView("front")}
           className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all ${
             activeView === "front"
-              ? "bg-brand-emerald text-black shadow-glow-emerald"
-              : "text-surface-400 hover:text-white"
+              ? "bg-[#ee4d00] text-white font-bold shadow-[0_0_12px_rgba(238,77,0,0.4)]"
+              : "text-neutral-400 hover:text-white"
           }`}
         >
           Anterior (Front)
@@ -54,8 +54,8 @@ export const FallbackBody2D: React.FC<FallbackBody2DProps> = ({
           onClick={() => setActiveView("back")}
           className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all ${
             activeView === "back"
-              ? "bg-brand-emerald text-black shadow-glow-emerald"
-              : "text-surface-400 hover:text-white"
+              ? "bg-[#ee4d00] text-white font-bold shadow-[0_0_12px_rgba(238,77,0,0.4)]"
+              : "text-neutral-400 hover:text-white"
           }`}
         >
           Posterior (Back)
@@ -303,7 +303,7 @@ export const FallbackBody2D: React.FC<FallbackBody2DProps> = ({
       <div className="mt-3 text-center">
         {selectedMuscle ? (
           <p className="text-xs text-surface-200">
-            Selected: <strong className="text-brand-emerald capitalize">{selectedMuscle.replace("_", " ")}</strong>
+            Selected: <strong className="text-[#ee4d00] capitalize">{selectedMuscle.replace("_", " ")}</strong>
             {weeklySetsMap[selectedMuscle] !== undefined && (
               <span className="text-surface-400 ml-1.5">({weeklySetsMap[selectedMuscle]} weekly sets)</span>
             )}

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Timer, Plus, Minus, SkipForward, Volume2, VolumeX, CheckCircle2 } from "lucide-react";
+import { Timer, Plus, Minus, SkipForward, Volume2, VolumeX } from "lucide-react";
 
 interface RestTimerModalProps {
   initialSeconds: number;
@@ -77,28 +77,28 @@ export const RestTimerModal: React.FC<RestTimerModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fade-in select-none">
-      <div className="w-full max-w-sm bg-[#121826] border border-surface-700 rounded-3xl p-6 shadow-2xl flex flex-col items-center text-center relative overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in select-none">
+      <div className="w-full max-w-sm bg-[#111114] border border-[#26262b] rounded-3xl p-6 shadow-2xl flex flex-col items-center text-center relative overflow-hidden">
         {/* Background glow */}
-        <div className="absolute -top-24 -left-24 w-48 h-48 bg-brand-emerald/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-brand-cyan/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -left-24 w-48 h-48 bg-[#ee4d00]/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-[#ee4d00]/15 rounded-full blur-3xl pointer-events-none" />
 
         {/* Audio Toggle */}
         <button
           type="button"
           onClick={() => setSoundEnabled(!soundEnabled)}
-          className="absolute top-4 right-4 p-2 text-surface-400 hover:text-white rounded-xl hover:bg-surface-800 transition-colors"
+          className="absolute top-4 right-4 p-2 text-neutral-400 hover:text-white rounded-xl hover:bg-[#26262b] transition-colors"
           title={soundEnabled ? "Mute chime" : "Unmute chime"}
         >
-          {soundEnabled ? <Volume2 className="w-4 h-4 text-brand-emerald" /> : <VolumeX className="w-4 h-4" />}
+          {soundEnabled ? <Volume2 className="w-4 h-4 text-[#ee4d00]" /> : <VolumeX className="w-4 h-4" />}
         </button>
 
         {/* Header */}
-        <div className="flex items-center gap-2 mb-1 text-brand-emerald">
+        <div className="flex items-center gap-2 mb-1 text-[#ee4d00]">
           <Timer className="w-5 h-5 animate-pulse" />
           <span className="text-xs font-black uppercase tracking-widest">Rest Interval</span>
         </div>
-        {exerciseName && <p className="text-xs text-surface-400 mb-6 truncate max-w-[240px]">{exerciseName}</p>}
+        {exerciseName && <p className="text-xs text-neutral-400 mb-6 truncate max-w-[240px]">{exerciseName}</p>}
 
         {/* Circular Progress Ring */}
         <div className="relative w-44 h-44 flex items-center justify-center mb-6">
@@ -107,13 +107,13 @@ export const RestTimerModal: React.FC<RestTimerModalProps> = ({
               cx="50"
               cy="50"
               r="42"
-              className="stroke-surface-800 stroke-[7] fill-transparent"
+              className="stroke-[#26262b] stroke-[7] fill-transparent"
             />
             <circle
               cx="50"
               cy="50"
               r="42"
-              className="stroke-brand-emerald stroke-[7] fill-transparent transition-all duration-1000 ease-linear"
+              className="stroke-[#ee4d00] stroke-[7] fill-transparent transition-all duration-1000 ease-linear shadow-[0_0_12px_#ee4d00]"
               strokeDasharray="264"
               strokeDashoffset={264 - (264 * progressPct) / 100}
               strokeLinecap="round"
@@ -123,7 +123,7 @@ export const RestTimerModal: React.FC<RestTimerModalProps> = ({
             <span className="text-4xl font-black text-white font-mono tracking-tight">
               {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
             </span>
-            <span className="text-[11px] text-surface-400 font-semibold mt-0.5">RECOVER &amp; BREATHE</span>
+            <span className="text-[11px] text-neutral-400 font-bold mt-0.5">RECOVER &amp; BREATHE</span>
           </div>
         </div>
 
@@ -133,21 +133,21 @@ export const RestTimerModal: React.FC<RestTimerModalProps> = ({
             type="button"
             onClick={() => addTime(-15)}
             disabled={timeLeft <= 15}
-            className="flex-1 py-2 px-3 bg-surface-800 hover:bg-surface-700 disabled:opacity-30 rounded-xl text-xs font-bold text-surface-200 transition-colors"
+            className="flex-1 py-2 px-3 bg-[#08080a] hover:bg-[#26262b] border border-[#26262b] disabled:opacity-30 rounded-xl text-xs font-bold text-neutral-300 transition-colors"
           >
             -15s
           </button>
           <button
             type="button"
             onClick={() => addTime(30)}
-            className="flex-1 py-2 px-3 bg-surface-800 hover:bg-surface-700 rounded-xl text-xs font-bold text-brand-emerald border border-brand-emerald/30 transition-colors flex items-center justify-center gap-1"
+            className="flex-1 py-2 px-3 bg-[#08080a] hover:bg-[#26262b] rounded-xl text-xs font-bold text-[#ee4d00] border border-[#ee4d00]/30 transition-colors flex items-center justify-center gap-1"
           >
             <Plus className="w-3.5 h-3.5" /> 30s
           </button>
           <button
             type="button"
             onClick={() => addTime(60)}
-            className="flex-1 py-2 px-3 bg-surface-800 hover:bg-surface-700 rounded-xl text-xs font-bold text-surface-200 transition-colors flex items-center justify-center gap-1"
+            className="flex-1 py-2 px-3 bg-[#08080a] hover:bg-[#26262b] border border-[#26262b] rounded-xl text-xs font-bold text-neutral-300 transition-colors flex items-center justify-center gap-1"
           >
             <Plus className="w-3.5 h-3.5" /> 60s
           </button>
@@ -157,10 +157,10 @@ export const RestTimerModal: React.FC<RestTimerModalProps> = ({
         <button
           type="button"
           onClick={onSkip}
-          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-emerald to-brand-cyan text-black font-extrabold text-sm shadow-glow-emerald hover:brightness-110 flex items-center justify-center gap-2 transition-all"
+          className="w-full py-3.5 px-4 rounded-full bg-[#ee4d00] text-white font-extrabold text-sm shadow-[0_0_20px_rgba(238,77,0,0.35)] hover:bg-[#ff5500] flex items-center justify-center gap-2 transition-all"
         >
-          <SkipForward className="w-4 h-4 fill-black" />
-          <span>Skip Rest · Ready Next Set</span>
+          <SkipForward className="w-4 h-4 fill-white" />
+          <span>Skip Rest &bull; Ready Next Set</span>
         </button>
       </div>
     </div>

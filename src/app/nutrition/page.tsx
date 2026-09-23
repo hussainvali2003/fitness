@@ -150,7 +150,7 @@ export default function NutritionPage() {
         </div>
 
         {/* Date Selector */}
-        <div className="flex items-center gap-2 bg-[#121826] px-3 py-1.5 rounded-2xl border border-surface-800">
+        <div className="flex items-center gap-2 bg-[#111114] px-3 py-1.5 rounded-2xl border border-[#26262b]">
           <input
             type="date"
             value={date}
@@ -163,70 +163,70 @@ export default function NutritionPage() {
       {/* Top Overview Cards: Macros & Water */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Calories Card */}
-        <div className="p-5 rounded-3xl bg-[#121826] border border-surface-800 space-y-2">
-          <div className="flex items-center justify-between text-surface-400">
+        <div className="p-5 rounded-3xl bg-[#111114] border border-[#26262b] space-y-2">
+          <div className="flex items-center justify-between text-neutral-400">
             <span className="text-[10px] font-bold uppercase tracking-wider">Calories</span>
-            <Flame className="w-4 h-4 text-brand-rose" />
+            <Flame className="w-4 h-4 text-rose-400" />
           </div>
-          <p className="text-2xl font-black text-white font-mono">{totalCalories} <span className="text-xs text-surface-400 font-sans">/ {targetCalories} kcal</span></p>
-          <div className="w-full bg-surface-900 rounded-full h-2 overflow-hidden">
+          <p className="text-2xl font-black text-white font-mono">{totalCalories} <span className="text-xs text-neutral-400 font-sans">/ {targetCalories} kcal</span></p>
+          <div className="w-full bg-[#08080a] rounded-full h-2 overflow-hidden border border-[#26262b]">
             <div
-              className="bg-brand-rose h-full rounded-full transition-all"
+              className="bg-rose-400 h-full rounded-full transition-all"
               style={{ width: `${Math.min(100, (totalCalories / targetCalories) * 100)}%` }}
             />
           </div>
-          <p className="text-[11px] text-surface-400 font-medium">
+          <p className="text-[11px] text-neutral-400 font-medium">
             {remainingCalories >= 0 ? `${remainingCalories} kcal remaining` : `${Math.abs(remainingCalories)} kcal over target`}
           </p>
         </div>
 
         {/* Protein Card */}
-        <div className="p-5 rounded-3xl bg-[#121826] border border-surface-800 space-y-2">
-          <div className="flex items-center justify-between text-surface-400">
+        <div className="p-5 rounded-3xl bg-[#111114] border border-[#26262b] space-y-2">
+          <div className="flex items-center justify-between text-neutral-400">
             <span className="text-[10px] font-bold uppercase tracking-wider">Protein (Crucial)</span>
-            <UtensilsCrossed className="w-4 h-4 text-brand-amber" />
+            <UtensilsCrossed className="w-4 h-4 text-amber-400" />
           </div>
-          <p className="text-2xl font-black text-brand-amber font-mono">{totalProtein} <span className="text-xs text-surface-400 font-sans">/ {targetProtein} g</span></p>
-          <div className="w-full bg-surface-900 rounded-full h-2 overflow-hidden">
+          <p className="text-2xl font-black text-amber-400 font-mono">{totalProtein} <span className="text-xs text-neutral-400 font-sans">/ {targetProtein} g</span></p>
+          <div className="w-full bg-[#08080a] rounded-full h-2 overflow-hidden border border-[#26262b]">
             <div
-              className="bg-brand-amber h-full rounded-full transition-all"
+              className="bg-amber-400 h-full rounded-full transition-all"
               style={{ width: `${Math.min(100, (totalProtein / targetProtein) * 100)}%` }}
             />
           </div>
-          <p className="text-[11px] text-surface-400 font-medium">
+          <p className="text-[11px] text-neutral-400 font-medium">
             {remainingProtein > 0 ? `${remainingProtein}g to daily goal` : `Goal unlocked! (+${Math.abs(remainingProtein)}g)`}
           </p>
         </div>
 
         {/* Carbs & Fat Card */}
-        <div className="p-5 rounded-3xl bg-[#121826] border border-surface-800 space-y-3">
-          <div className="flex items-center justify-between text-surface-400">
+        <div className="p-5 rounded-3xl bg-[#111114] border border-[#26262b] space-y-3">
+          <div className="flex items-center justify-between text-neutral-400">
             <span className="text-[10px] font-bold uppercase tracking-wider">Carbs &amp; Fats</span>
-            <Sparkles className="w-4 h-4 text-brand-cyan" />
+            <Sparkles className="w-4 h-4 text-[#ee4d00]" />
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <span className="text-[10px] text-surface-400 font-bold uppercase">Carbs</span>
-              <p className="text-lg font-black text-brand-cyan font-mono">{totalCarbs}g</p>
+              <span className="text-[10px] text-neutral-400 font-bold uppercase">Carbs</span>
+              <p className="text-lg font-black text-[#ee4d00] font-mono">{totalCarbs}g</p>
             </div>
             <div>
-              <span className="text-[10px] text-surface-400 font-bold uppercase">Fat</span>
-              <p className="text-lg font-black text-purple-400 font-mono">{totalFat}g</p>
+              <span className="text-[10px] text-neutral-400 font-bold uppercase">Fat</span>
+              <p className="text-lg font-black text-indigo-400 font-mono">{totalFat}g</p>
             </div>
           </div>
-          <p className="text-[10px] text-surface-500 font-mono">Balanced split for energy</p>
+          <p className="text-[10px] text-neutral-500 font-mono">Balanced split for energy</p>
         </div>
 
         {/* Water Ring Card */}
-        <div className="p-5 rounded-3xl bg-[#121826] border border-surface-800 space-y-2">
-          <div className="flex items-center justify-between text-surface-400">
+        <div className="p-5 rounded-3xl bg-[#111114] border border-[#26262b] space-y-2">
+          <div className="flex items-center justify-between text-neutral-400">
             <span className="text-[10px] font-bold uppercase tracking-wider">Hydration</span>
-            <Droplets className="w-4 h-4 text-brand-cyan" />
+            <Droplets className="w-4 h-4 text-[#ee4d00]" />
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-2xl font-black text-brand-cyan font-mono">
-                {(todayWaterMl / 1000).toFixed(1)} <span className="text-xs text-surface-400 font-sans">/ 3.0 L</span>
+              <p className="text-2xl font-black text-[#ee4d00] font-mono">
+                {(todayWaterMl / 1000).toFixed(1)} <span className="text-xs text-neutral-400 font-sans">/ 3.0 L</span>
               </p>
               <p className="text-[10px] text-surface-400">{waterPct}% hydration</p>
             </div>
@@ -246,7 +246,7 @@ export default function NutritionPage() {
                 addWaterAmount(250, date);
                 loadData();
               }}
-              className="flex-1 py-1 rounded-lg bg-surface-900 hover:bg-surface-800 text-[10px] font-bold text-brand-cyan border border-surface-700 transition-colors"
+              className="flex-1 py-1 rounded-lg bg-surface-900 hover:bg-surface-800 text-[10px] font-bold text-[#ee4d00] border border-surface-700 transition-colors"
             >
               +250ml
             </button>
@@ -256,7 +256,7 @@ export default function NutritionPage() {
                 addWaterAmount(500, date);
                 loadData();
               }}
-              className="flex-1 py-1 rounded-lg bg-surface-900 hover:bg-surface-800 text-[10px] font-bold text-brand-cyan border border-surface-700 transition-colors"
+              className="flex-1 py-1 rounded-lg bg-surface-900 hover:bg-surface-800 text-[10px] font-bold text-[#ee4d00] border border-surface-700 transition-colors"
             >
               +500ml
             </button>
@@ -266,7 +266,7 @@ export default function NutritionPage() {
                 addWaterAmount(1000, date);
                 loadData();
               }}
-              className="flex-1 py-1 rounded-lg bg-surface-900 hover:bg-surface-800 text-[10px] font-bold text-brand-cyan border border-surface-700 transition-colors"
+              className="flex-1 py-1 rounded-lg bg-surface-900 hover:bg-surface-800 text-[10px] font-bold text-[#ee4d00] border border-surface-700 transition-colors"
             >
               +1L
             </button>
@@ -278,12 +278,12 @@ export default function NutritionPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left: Logged Meals by Bucket */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="p-6 rounded-3xl bg-[#121826] border border-surface-800 space-y-6">
-            <div className="flex items-center justify-between pb-2 border-b border-surface-800">
+          <div className="p-6 rounded-3xl bg-[#111114] border border-[#26262b] space-y-6">
+            <div className="flex items-center justify-between pb-2 border-b border-[#26262b]">
               <h3 className="text-xs font-black text-white uppercase tracking-wider">
                 Logged Meals ({todayEntries.length})
               </h3>
-              <span className="text-xs font-mono font-bold text-brand-emerald">
+              <span className="text-xs font-mono font-bold text-[#ee4d00]">
                 {totalCalories} kcal Total
               </span>
             </div>
@@ -297,8 +297,8 @@ export default function NutritionPage() {
                 <div key={m.id} className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-white uppercase tracking-wider">{m.label}</span>
-                    <span className="text-[11px] font-mono text-surface-400">
-                      {mealCal} kcal &middot; <strong className="text-brand-amber">{mealPro}g protein</strong>
+                    <span className="text-[11px] font-mono text-neutral-400">
+                      {mealCal} kcal &middot; <strong className="text-amber-400">{mealPro}g protein</strong>
                     </span>
                   </div>
 
@@ -307,18 +307,18 @@ export default function NutritionPage() {
                       {mealItems.map((item) => (
                         <div
                           key={item.id}
-                          className="flex items-center justify-between p-3 rounded-2xl bg-surface-900 border border-surface-800 text-xs"
+                          className="flex items-center justify-between p-3 rounded-2xl bg-[#08080a] border border-[#26262b] text-xs"
                         >
                           <div>
                             <p className="font-bold text-white">{item.foodName}</p>
-                            <p className="text-[10px] text-surface-400 font-mono">
+                            <p className="text-[10px] text-neutral-400 font-mono">
                               {item.calories} kcal &middot; {item.proteinG}g P &middot; {item.carbsG}g C &middot; {item.fatG}g F
                             </p>
                           </div>
                           <button
                             type="button"
                             onClick={() => handleDeleteEntry(item.id)}
-                            className="p-1.5 text-surface-500 hover:text-rose-400 transition-colors"
+                            className="p-1.5 text-neutral-500 hover:text-rose-400 transition-colors"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -326,7 +326,7 @@ export default function NutritionPage() {
                       ))}
                     </div>
                   ) : (
-                    <div className="p-3 rounded-2xl bg-surface-900/40 border border-surface-800/60 text-[11px] text-surface-500 text-center">
+                    <div className="p-3 rounded-2xl bg-[#08080a]/40 border border-[#26262b]/60 text-[11px] text-neutral-500 text-center">
                       No foods logged for {m.label.toLowerCase()} yet.
                     </div>
                   )}
@@ -338,23 +338,23 @@ export default function NutritionPage() {
 
         {/* Right: Quick-Add Food Library & Custom Creator */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="p-6 rounded-3xl bg-[#121826] border border-surface-800 space-y-4">
+          <div className="p-6 rounded-3xl bg-[#111114] border border-[#26262b] space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2">
-                <UtensilsCrossed className="w-4 h-4 text-brand-emerald" />
+                <UtensilsCrossed className="w-4 h-4 text-[#ee4d00]" />
                 <span>Gym Food Library</span>
               </h3>
               <button
                 type="button"
                 onClick={() => setShowCustomModal(true)}
-                className="text-[11px] font-bold text-brand-emerald hover:underline"
+                className="text-[11px] font-bold text-[#ee4d00] hover:underline"
               >
                 + Custom Food
               </button>
             </div>
 
             {/* Target Meal Picker */}
-            <div className="flex items-center gap-1 bg-surface-900 p-1 rounded-xl border border-surface-800">
+            <div className="flex items-center gap-1 bg-[#08080a] p-1 rounded-xl border border-[#26262b]">
               {meals.map((m) => (
                 <button
                   key={m.id}
@@ -362,8 +362,8 @@ export default function NutritionPage() {
                   onClick={() => setSelectedMeal(m.id)}
                   className={`flex-1 py-1.5 text-[10px] font-bold rounded-lg transition-all capitalize ${
                     selectedMeal === m.id
-                      ? "bg-brand-emerald text-black shadow-glow-emerald"
-                      : "text-surface-400 hover:text-white"
+                      ? "bg-[#ee4d00] text-[#08080a] shadow-[0_0_12px_rgba(56,189,248,0.3)] font-black"
+                      : "text-neutral-400 hover:text-white"
                   }`}
                 >
                   {m.id}
@@ -373,13 +373,13 @@ export default function NutritionPage() {
 
             {/* Search */}
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-surface-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Filter foods..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-8 pr-3 py-2 bg-surface-900 border border-surface-700 rounded-xl text-xs text-white focus:outline-none focus:border-brand-emerald"
+                className="w-full pl-8 pr-3 py-2 bg-[#08080a] border border-[#26262b] rounded-xl text-xs text-white focus:outline-none focus:border-[#ee4d00]"
               />
             </div>
 
@@ -388,19 +388,19 @@ export default function NutritionPage() {
               {filteredFoods.map((food) => (
                 <div
                   key={food.id}
-                  className="flex items-center justify-between p-3 rounded-2xl bg-surface-900 border border-surface-800 hover:border-surface-700 transition-all"
+                  className="flex items-center justify-between p-3 rounded-2xl bg-[#08080a] border border-[#26262b] hover:border-[#ee4d00]/40 transition-all"
                 >
                   <div>
                     <p className="text-xs font-bold text-white">{food.name}</p>
-                    <p className="text-[10px] text-surface-400 font-mono">
+                    <p className="text-[10px] text-neutral-400 font-mono">
                       {food.servingSize} &middot; {food.calories} kcal &middot;{" "}
-                      <strong className="text-brand-amber">{food.proteinG}g P</strong>
+                      <strong className="text-amber-400">{food.proteinG}g P</strong>
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleAddFromLibrary(food)}
-                    className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-surface-800 hover:bg-brand-emerald hover:text-black text-brand-emerald font-bold text-[10px] border border-surface-700 transition-all"
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#111114] hover:bg-[#ee4d00] hover:text-[#08080a] text-[#ee4d00] font-bold text-[10px] border border-[#26262b] transition-all"
                   >
                     <Plus className="w-3 h-3" />
                     <span>Add</span>
@@ -415,64 +415,64 @@ export default function NutritionPage() {
       {/* Custom Food Modal */}
       {showCustomModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-          <div className="w-full max-w-md bg-[#121826] border border-surface-700 rounded-3xl p-6 shadow-2xl space-y-4">
+          <div className="w-full max-w-md bg-[#111114] border border-[#26262b] rounded-3xl p-6 shadow-2xl space-y-4">
             <h3 className="text-base font-black text-white uppercase tracking-tight">
               Create Custom Food Item
             </h3>
             <form onSubmit={handleSaveCustomFood} className="space-y-3">
               <div>
-                <label className="text-[10px] font-bold text-surface-400 uppercase">Food Name *</label>
+                <label className="text-[10px] font-bold text-neutral-400 uppercase">Food Name *</label>
                 <input
                   type="text"
                   placeholder="e.g. Soya Paneer Stir Fry"
                   value={customName}
                   onChange={(e) => setCustomName(e.target.value)}
-                  className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-emerald"
+                  className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00]"
                   required
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[10px] font-bold text-surface-400 uppercase">Calories (kcal) *</label>
+                  <label className="text-[10px] font-bold text-neutral-400 uppercase">Calories (kcal) *</label>
                   <input
                     type="number"
                     placeholder="e.g. 250"
                     value={customCalories}
                     onChange={(e) => setCustomCalories(e.target.value)}
-                    className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
+                    className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00]"
                     required
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold text-brand-amber uppercase">Protein (g) *</label>
+                  <label className="text-[10px] font-bold text-amber-400 uppercase">Protein (g) *</label>
                   <input
                     type="number"
                     placeholder="e.g. 28"
                     value={customProtein}
                     onChange={(e) => setCustomProtein(e.target.value)}
-                    className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
+                    className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00]"
                     required
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold text-surface-400 uppercase">Carbs (g)</label>
+                  <label className="text-[10px] font-bold text-neutral-400 uppercase">Carbs (g)</label>
                   <input
                     type="number"
                     placeholder="e.g. 15"
                     value={customCarbs}
                     onChange={(e) => setCustomCarbs(e.target.value)}
-                    className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
+                    className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00]"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold text-surface-400 uppercase">Fat (g)</label>
+                  <label className="text-[10px] font-bold text-neutral-400 uppercase">Fat (g)</label>
                   <input
                     type="number"
                     placeholder="e.g. 6"
                     value={customFat}
                     onChange={(e) => setCustomFat(e.target.value)}
-                    className="w-full mt-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
+                    className="w-full mt-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ee4d00]"
                   />
                 </div>
               </div>
@@ -481,13 +481,13 @@ export default function NutritionPage() {
                 <button
                   type="button"
                   onClick={() => setShowCustomModal(false)}
-                  className="px-4 py-2 text-xs font-bold text-surface-400 hover:text-white"
+                  className="px-4 py-2 text-xs font-bold text-neutral-400 hover:text-white"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-brand-emerald text-black font-extrabold text-xs shadow-glow-emerald hover:brightness-110"
+                  className="px-5 py-2.5 rounded-xl bg-[#ee4d00] text-[#08080a] font-extrabold text-xs shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:brightness-110"
                 >
                   Save &amp; Add
                 </button>

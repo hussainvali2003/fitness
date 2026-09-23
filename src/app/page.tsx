@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Flame,
   Dumbbell,
@@ -13,12 +14,15 @@ import {
   Play,
   CheckCircle2,
   TrendingDown,
-  TrendingUp,
   ChevronRight,
-  Plus,
   Sparkles,
   Calendar,
   Layers,
+  Target,
+  Activity,
+  Zap,
+  RotateCw,
+  Trophy,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -45,7 +49,8 @@ import {
   calculate7DayWeightAverage,
 } from "@/lib/storage";
 import { weeklyWorkoutPlan, allExercises } from "@/lib/seedData";
-import { WorkoutDayPlan, BodyEntry } from "@/types";
+import { WorkoutDayPlan, BodyEntry, MuscleGroup } from "@/types";
+import { HumanBodyCanvasHQ } from "@/components/3d/HumanBodyCanvasHQ";
 
 export default function DashboardPage() {
   const [profile, setProfile] = useState<any>(null);
@@ -60,7 +65,7 @@ export default function DashboardPage() {
   // Quick log modals / inline inputs
   const [quickWeight, setQuickWeight] = useState("");
   const [quickSteps, setQuickSteps] = useState("");
-  const [showQuickLog, setShowQuickLog] = useState(false);
+  const [heroImageTab, setHeroImageTab] = useState<"solo" | "duo">("solo");
 
   const loadAllData = () => {
     setProfile(getStoredProfile());
@@ -85,6 +90,19 @@ export default function DashboardPage() {
   const todayPlan: WorkoutDayPlan =
     weeklyWorkoutPlan.find((p) => p.dayOfWeek === currentDayOfWeek) || weeklyWorkoutPlan[0];
 
+  // Extract target muscles for today's workout
+  const todayPrimaryMuscle: MuscleGroup =
+    todayPlan.targetMuscles?.[0] || "chest";
+
+  const todaySecondaryMuscles: MuscleGroup[] =
+    todayPlan.targetMuscles?.slice(1) || [];
+
+  const [selectedDashboardMuscle, setSelectedDashboardMuscle] = useState<MuscleGroup>(todayPrimaryMuscle);
+
+  useEffect(() => {
+    setSelectedDashboardMuscle(todayPrimaryMuscle);
+  }, [todayPrimaryMuscle]);
+
   // Today's metrics calculation
   const todayBody = bodyEntries.find((b) => b.date === todayStr) || bodyEntries[0];
   const currentWeight = todayBody?.weightKg || profile?.currentWeightKg || 79.8;
@@ -106,7 +124,6 @@ export default function DashboardPage() {
   const todayWaterTotalMl = waterLogs
     .filter((w) => w.date === todayStr)
     .reduce((acc, curr) => acc + curr.amountMl, 0);
-  const waterTargetMl = (profile?.waterTargetLiters || 3.0) * 1000;
   const waterLiters = (todayWaterTotalMl / 1000).toFixed(1);
 
   const todaySleep = sleepEntries.find((s) => s.date === todayStr);
@@ -173,194 +190,406 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="space-y-8 animate-fade-in pb-12">
-      {/* Top Hero Workout Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#121826] via-[#101522] to-[#0A0D14] border border-surface-800 p-6 sm:p-8 shadow-glass-card">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-brand-emerald/15 via-brand-cyan/10 to-transparent rounded-full blur-3xl pointer-events-none" />
+    <div className="space-y-8 animate-fade-in pb-16">
+      {/* ========================================================================= */}
+      {/* GYM X HERO SECTION (Dribbble Aliza Anis Spec + User Face HQ Looping GIF) */}
+      {/* ========================================================================= */}
+      <div className="relative overflow-hidden rounded-3xl bg-[#111114] border border-[#26262b] p-6 sm:p-10 shadow-2xl">
+        {/* Ambient Orange Glow */}
+        <div className="absolute top-0 right-1/4 w-[420px] h-[420px] bg-[#ee4d00]/15 rounded-full blur-[110px] pointer-events-none" />
 
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
-          <div className="space-y-3 max-w-2xl">
-            <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-brand-emerald/15 text-brand-emerald border border-brand-emerald/30 flex items-center gap-1.5">
-                <Flame className="w-3.5 h-3.5" />
-                <span>TODAY&apos;S SCHEDULE</span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          {/* Left Hero Content */}
+          <div className="lg:col-span-7 space-y-5">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[#ee4d00]/15 text-[#ee4d00] border border-[#ee4d00]/30 shadow-[0_0_12px_rgba(238,77,0,0.25)] flex items-center gap-1.5">
+                <Flame className="w-3.5 h-3.5 fill-[#ee4d00]" />
+                <span>GYM X HYPERTROPHY ENGINE</span>
               </span>
-              <span className="text-xs text-surface-400 font-semibold font-mono">
-                {currentDayOfWeek.toUpperCase()}
+              <span className="text-xs text-neutral-400 font-mono font-bold">
+                {currentDayOfWeek.toUpperCase()} &bull; 12-WEEK CYCLE
               </span>
             </div>
 
             <div>
-              <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight uppercase">
-                {todayPlan.name}
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase leading-[1.05]">
+                START YOUR <br />
+                WORKOUT <span className="text-[#ee4d00]">FITNESS</span> TODAY!
               </h1>
-              <p className="text-sm sm:text-base text-surface-300 font-medium mt-1">
-                {todayPlan.focus}
+              <p className="text-sm sm:text-base text-neutral-400 font-medium mt-3 max-w-xl leading-relaxed">
+                Sculpt your physique with advanced 3D biomechanics, scientific progressive overload, and personalized tracking for Md Sadique Amin.
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 text-xs text-surface-400 pt-1">
-              {!todayPlan.isRestDay ? (
-                <>
-                  <span className="flex items-center gap-1.5 bg-surface-900/80 px-2.5 py-1 rounded-lg border border-surface-800 text-surface-200">
-                    <Layers className="w-3.5 h-3.5 text-brand-cyan" />
-                    <strong>{todayPlan.exercises.length} exercises</strong>
-                  </span>
-                  <span className="flex items-center gap-1.5 bg-surface-900/80 px-2.5 py-1 rounded-lg border border-surface-800 text-surface-200">
-                    <Dumbbell className="w-3.5 h-3.5 text-brand-emerald" />
-                    <strong>~{todayPlan.estimatedMinutes} minutes</strong>
-                  </span>
-                  {todayPlan.finisher && (
-                    <span className="text-surface-400 hidden sm:inline">
-                      Finisher: {todayPlan.finisher}
-                    </span>
-                  )}
-                </>
-              ) : (
-                <p className="text-surface-300 text-xs">
-                  Active Recovery Day · Hydration, mobility &amp; 10,000 steps focus
-                </p>
-              )}
+            {/* Program Highlights Pill Row */}
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#08080a] border border-[#26262b] text-xs font-bold text-neutral-200">
+                <Layers className="w-3.5 h-3.5 text-[#ee4d00]" />
+                <span>{todayPlan.exercises?.length || 8} Movements</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#08080a] border border-[#26262b] text-xs font-bold text-neutral-200">
+                <Dumbbell className="w-3.5 h-3.5 text-[#ee4d00]" />
+                <span>~{todayPlan.estimatedMinutes} Mins Session</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#08080a] border border-[#26262b] text-xs font-bold text-neutral-200">
+                <Trophy className="w-3.5 h-3.5 text-[#ee4d00]" />
+                <span>Target: 70.0 kg (-2.2kg Lost)</span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <Link
+                href={`/workout/active?day=${todayPlan.id}`}
+                className="px-7 py-3.5 rounded-full bg-[#ee4d00] hover:bg-[#ff5500] active:scale-95 text-white font-extrabold text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(238,77,0,0.4)] transition-all flex items-center justify-center gap-2"
+              >
+                <Play className="w-4 h-4 fill-white" />
+                <span>Start Workout Session</span>
+              </Link>
+              <Link
+                href="/workout"
+                className="px-6 py-3.5 rounded-full bg-[#111114] hover:bg-[#1a1a20] text-white border border-[#26262b] hover:border-[#ee4d00]/50 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2"
+              >
+                <span>Prescribed 8 Exercises</span>
+                <ChevronRight className="w-4 h-4 text-[#ee4d00]" />
+              </Link>
             </div>
           </div>
 
-          {/* Action Button */}
-          <div className="flex flex-col sm:flex-row items-stretch lg:items-center gap-3">
-            <Link
-              href={`/workout/active?day=${todayPlan.id}`}
-              className="px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-emerald to-brand-cyan text-black font-black text-sm uppercase tracking-wider shadow-glow-emerald hover:brightness-110 flex items-center justify-center gap-2.5 transition-all"
-            >
-              <Play className="w-4 h-4 fill-black" />
-              <span>{todayPlan.isRestDay ? "LOG EXTRA WORKOUT" : "START WORKOUT"}</span>
-            </Link>
+          {/* Right Hero: HQ Animated Looping GIF of User (Sadique) */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative rounded-3xl overflow-hidden border border-[#26262b] bg-[#08080a] shadow-[0_0_40px_rgba(0,0,0,0.8)] group">
+              <div className="relative w-full h-80 sm:h-96">
+                <Image
+                  src={heroImageTab === "solo" ? "/sadique_hero.gif" : "/gymx_sadique_duo.gif"}
+                  alt="Md Sadique Amin - GYM X Athlete"
+                  fill
+                  unoptimized
+                  priority
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-black/20 pointer-events-none" />
+
+                {/* Floating Athlete Badge */}
+                <div className="absolute top-4 left-4 z-10">
+                  <div className="px-3 py-1.5 rounded-xl bg-black/70 backdrop-blur border border-white/10 flex items-center gap-2 shadow-lg">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#ee4d00] animate-pulse shadow-[0_0_8px_#ee4d00]" />
+                    <span className="text-xs font-black uppercase text-white tracking-wider">
+                      Md Sadique Amin &bull; GYM X
+                    </span>
+                  </div>
+                </div>
+
+                {/* Image Switcher: Solo Athlete (Previous) vs Duo */}
+                <div className="absolute top-4 right-4 z-10 flex items-center gap-1 bg-black/70 backdrop-blur p-1 rounded-xl border border-white/10 shadow-lg">
+                  <button
+                    type="button"
+                    onClick={() => setHeroImageTab("solo")}
+                    className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${
+                      heroImageTab === "solo"
+                        ? "bg-[#ee4d00] text-white shadow-sm"
+                        : "text-neutral-400 hover:text-white"
+                    }`}
+                  >
+                    Solo Athlete
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setHeroImageTab("duo")}
+                    className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${
+                      heroImageTab === "duo"
+                        ? "bg-[#ee4d00] text-white shadow-sm"
+                        : "text-neutral-400 hover:text-white"
+                    }`}
+                  >
+                    Duo Scene
+                  </button>
+                </div>
+
+                {/* Bottom Floating Stats Pill (Dribbble 252K style) */}
+                <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between p-3.5 rounded-2xl bg-[#111114]/90 backdrop-blur border border-[#26262b] shadow-xl">
+                  <div>
+                    <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block">
+                      Active Reps &amp; Volume
+                    </span>
+                    <span className="text-lg font-black text-white">252K+ lbs Lifted</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[10px] font-mono text-[#ee4d00] uppercase tracking-wider block font-bold">
+                      Program Phase
+                    </span>
+                    <span className="text-sm font-bold text-white">Hypertrophy W3</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* 6 Key Daily Metric Rings / Cards */}
+      {/* 6 Key Daily Metric StatCards - GYM X Styling */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
-        {/* Weight Card */}
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800 space-y-2 hover:border-surface-700 transition-all">
-          <div className="flex items-center justify-between text-surface-400">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Weight</span>
-            <Scale className="w-4 h-4 text-brand-cyan" />
+        {/* Weight StatCard */}
+        <div className="bg-[#111114] border border-[#26262b] rounded-2xl p-4 shadow-lg hover:border-[#ee4d00]/50 transition-all space-y-2">
+          <div className="flex items-center justify-between text-xs text-neutral-400 font-bold uppercase tracking-wider">
+            <span>Weight</span>
+            <Scale className="w-4 h-4 text-[#ee4d00]" />
           </div>
           <div>
-            <p className="text-xl font-black text-white font-mono">{currentWeight} <span className="text-xs text-surface-400 font-sans">kg</span></p>
-            <p className="text-[11px] font-bold text-brand-emerald flex items-center gap-1 mt-0.5">
+            <p className="text-2xl font-black text-white font-mono tracking-tight">
+              {currentWeight} <span className="text-xs text-neutral-400 font-sans font-normal">kg</span>
+            </p>
+            <p className="text-[11px] font-semibold text-[#ee4d00] flex items-center gap-1 mt-0.5">
               <TrendingDown className="w-3 h-3" />
               <span>{weightChange > 0 ? `+${weightChange}` : weightChange} kg</span>
             </p>
           </div>
-          <p className="text-[10px] text-surface-500 font-mono">7d avg: {sevenDayAvgWeight}kg</p>
+          <p className="text-[10px] text-neutral-400 font-mono">7d avg: {sevenDayAvgWeight}kg</p>
         </div>
 
-        {/* Steps Card */}
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800 space-y-2 hover:border-surface-700 transition-all">
-          <div className="flex items-center justify-between text-surface-400">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Steps</span>
-            <Footprints className="w-4 h-4 text-brand-emerald" />
+        {/* Steps StatCard */}
+        <div className="bg-[#111114] border border-[#26262b] rounded-2xl p-4 shadow-lg hover:border-[#ee4d00]/50 transition-all space-y-2">
+          <div className="flex items-center justify-between text-xs text-neutral-400 font-bold uppercase tracking-wider">
+            <span>Steps</span>
+            <Footprints className="w-4 h-4 text-[#ee4d00]" />
           </div>
           <div>
-            <p className="text-xl font-black text-white font-mono">{todaySteps.toLocaleString()}</p>
-            <p className="text-[11px] text-surface-400 font-medium mt-0.5">/ {stepTarget.toLocaleString()}</p>
+            <p className="text-2xl font-black text-white font-mono tracking-tight">{todaySteps.toLocaleString()}</p>
+            <p className="text-[11px] text-neutral-400 font-medium mt-0.5">/ {stepTarget.toLocaleString()}</p>
           </div>
-          {/* Progress Bar */}
-          <div className="w-full bg-surface-900 rounded-full h-1.5 overflow-hidden">
-            <div className="bg-brand-emerald h-full rounded-full transition-all duration-500" style={{ width: `${stepPct}%` }} />
+          <div className="w-full bg-[#1b1b22] rounded-full h-1.5 overflow-hidden">
+            <div className="bg-[#ee4d00] h-full rounded-full transition-all duration-500 shadow-[0_0_6px_#ee4d00]" style={{ width: `${stepPct}%` }} />
           </div>
         </div>
 
-        {/* Protein Card */}
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800 space-y-2 hover:border-surface-700 transition-all">
-          <div className="flex items-center justify-between text-surface-400">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Protein</span>
-            <UtensilsCrossed className="w-4 h-4 text-brand-amber" />
+        {/* Protein StatCard */}
+        <div className="bg-[#111114] border border-[#26262b] rounded-2xl p-4 shadow-lg hover:border-[#ee4d00]/50 transition-all space-y-2">
+          <div className="flex items-center justify-between text-xs text-neutral-400 font-bold uppercase tracking-wider">
+            <span>Protein</span>
+            <UtensilsCrossed className="w-4 h-4 text-[#ee4d00]" />
           </div>
           <div>
-            <p className="text-xl font-black text-white font-mono">{totalProtein} <span className="text-xs text-surface-400 font-sans">g</span></p>
-            <p className="text-[11px] text-surface-400 font-medium mt-0.5">/ {proteinTarget} g target</p>
+            <p className="text-2xl font-black text-white font-mono tracking-tight">
+              {totalProtein} <span className="text-xs text-neutral-400 font-sans font-normal">g</span>
+            </p>
+            <p className="text-[11px] text-neutral-400 font-medium mt-0.5">/ {proteinTarget} g target</p>
           </div>
-          <div className="w-full bg-surface-900 rounded-full h-1.5 overflow-hidden">
+          <div className="w-full bg-[#1b1b22] rounded-full h-1.5 overflow-hidden">
             <div
-              className="bg-brand-amber h-full rounded-full transition-all duration-500"
+              className="bg-[#ee4d00] h-full rounded-full transition-all duration-500 shadow-[0_0_6px_#ee4d00]"
               style={{ width: `${Math.min(100, (totalProtein / proteinTarget) * 100)}%` }}
             />
           </div>
         </div>
 
-        {/* Calories Card */}
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800 space-y-2 hover:border-surface-700 transition-all">
-          <div className="flex items-center justify-between text-surface-400">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Calories</span>
-            <Flame className="w-4 h-4 text-brand-rose" />
+        {/* Calories StatCard */}
+        <div className="bg-[#111114] border border-[#26262b] rounded-2xl p-4 shadow-lg hover:border-[#ee4d00]/50 transition-all space-y-2">
+          <div className="flex items-center justify-between text-xs text-neutral-400 font-bold uppercase tracking-wider">
+            <span>Calories</span>
+            <Flame className="w-4 h-4 text-[#ee4d00]" />
           </div>
           <div>
-            <p className="text-xl font-black text-white font-mono">{totalCalories.toLocaleString()}</p>
-            <p className="text-[11px] text-surface-400 font-medium mt-0.5">/ {calorieTarget} kcal</p>
+            <p className="text-2xl font-black text-white font-mono tracking-tight">{totalCalories.toLocaleString()}</p>
+            <p className="text-[11px] text-neutral-400 font-medium mt-0.5">/ {calorieTarget} kcal</p>
           </div>
-          <div className="w-full bg-surface-900 rounded-full h-1.5 overflow-hidden">
+          <div className="w-full bg-[#1b1b22] rounded-full h-1.5 overflow-hidden">
             <div
-              className="bg-brand-rose h-full rounded-full transition-all duration-500"
+              className="bg-[#ee4d00] h-full rounded-full transition-all duration-500 shadow-[0_0_6px_#ee4d00]"
               style={{ width: `${Math.min(100, (totalCalories / calorieTarget) * 100)}%` }}
             />
           </div>
         </div>
 
-        {/* Water Card */}
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800 space-y-2 hover:border-surface-700 transition-all">
-          <div className="flex items-center justify-between text-surface-400">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Water</span>
-            <Droplets className="w-4 h-4 text-brand-cyan" />
+        {/* Water StatCard */}
+        <div className="bg-[#111114] border border-[#26262b] rounded-2xl p-4 shadow-lg hover:border-[#ee4d00]/50 transition-all space-y-2">
+          <div className="flex items-center justify-between text-xs text-neutral-400 font-bold uppercase tracking-wider">
+            <span>Water</span>
+            <Droplets className="w-4 h-4 text-[#ee4d00]" />
           </div>
           <div>
-            <p className="text-xl font-black text-white font-mono">{waterLiters} <span className="text-xs text-surface-400 font-sans">L</span></p>
-            <p className="text-[11px] text-surface-400 font-medium mt-0.5">/ 3.0 L target</p>
+            <p className="text-2xl font-black text-white font-mono tracking-tight">
+              {waterLiters} <span className="text-xs text-neutral-400 font-sans font-normal">L</span>
+            </p>
+            <p className="text-[11px] text-neutral-400 font-medium mt-0.5">/ 3.0 L target</p>
           </div>
-          <div className="flex items-center gap-1 pt-1">
+          <div className="flex items-center gap-1.5 pt-1">
             <button
               type="button"
               onClick={() => handleQuickAddWater(250)}
-              className="px-1.5 py-0.5 rounded bg-surface-800 hover:bg-surface-700 text-[10px] font-bold text-brand-cyan transition-colors"
+              className="px-2.5 py-1 rounded-lg bg-[#26262b] hover:bg-[#ee4d00]/20 text-[10px] font-bold text-[#ee4d00] transition-colors"
             >
               +250ml
             </button>
             <button
               type="button"
               onClick={() => handleQuickAddWater(500)}
-              className="px-1.5 py-0.5 rounded bg-surface-800 hover:bg-surface-700 text-[10px] font-bold text-brand-cyan transition-colors"
+              className="px-2.5 py-1 rounded-lg bg-[#26262b] hover:bg-[#ee4d00]/20 text-[10px] font-bold text-[#ee4d00] transition-colors"
             >
               +500ml
             </button>
           </div>
         </div>
 
-        {/* Sleep Card */}
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800 space-y-2 hover:border-surface-700 transition-all">
-          <div className="flex items-center justify-between text-surface-400">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Sleep</span>
-            <Moon className="w-4 h-4 text-brand-purple" />
+        {/* Sleep StatCard */}
+        <div className="bg-[#111114] border border-[#26262b] rounded-2xl p-4 shadow-lg hover:border-[#ee4d00]/50 transition-all space-y-2">
+          <div className="flex items-center justify-between text-xs text-neutral-400 font-bold uppercase tracking-wider">
+            <span>Sleep</span>
+            <Moon className="w-4 h-4 text-[#ee4d00]" />
           </div>
           <div>
-            <p className="text-xl font-black text-white font-mono">{sleepDuration}</p>
-            <p className="text-[11px] text-surface-400 font-medium mt-0.5">Target: 7.5h</p>
+            <p className="text-2xl font-black text-white font-mono tracking-tight">{sleepDuration}</p>
+            <p className="text-[11px] text-neutral-400 font-medium mt-0.5">Target: 7.5h</p>
           </div>
-          <p className="text-[10px] text-brand-emerald font-semibold">Rested &amp; Ready</p>
+          <p className="text-[10px] text-[#ee4d00] font-bold">Rested &amp; Ready</p>
         </div>
       </div>
 
-      {/* Weekly Workout Consistency & Quick Log Bar */}
+      {/* ========================================================================= */}
+      {/* 360° & 3D REAL-TIME ANATOMICAL HUMAN HUB (Insan, NOT Robot) */}
+      {/* ========================================================================= */}
+      <div className="rounded-3xl bg-[#111114] border border-[#26262b] p-6 sm:p-8 shadow-2xl space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#26262b] pb-5">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[#ee4d00]/15 text-[#ee4d00] border border-[#ee4d00]/30 shadow-[0_0_12px_rgba(238,77,0,0.2)]">
+                ⚡ 360&deg; 3D HUMAN ANATOMY LAB
+              </span>
+              <span className="text-xs text-neutral-400 font-mono">
+                Anatomical Hypertrophy Simulation
+              </span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight mt-2 flex items-center gap-2">
+              <span>Target Muscular Anatomy &bull;</span>
+              <span className="text-[#ee4d00]">{todayPlan.name}</span>
+            </h2>
+          </div>
+
+          <Link
+            href="/muscle-map"
+            className="px-5 py-2.5 rounded-full bg-[#26262b] hover:bg-[#32323a] text-white font-bold text-xs border border-white/5 hover:border-[#ee4d00]/40 transition-all flex items-center gap-1.5 self-start sm:self-auto shadow-sm"
+          >
+            <span>Full Anatomy Explorer</span>
+            <ChevronRight className="w-4 h-4 text-[#ee4d00]" />
+          </Link>
+        </div>
+
+        {/* Split Grid: 3D Canvas on Left, Biomechanical Target Matrix on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* 3D Real-Time Model Canvas */}
+          <div className="lg:col-span-7 rounded-2xl overflow-hidden border border-[#26262b] bg-[#08080a]">
+            <HumanBodyCanvasHQ
+              primaryMuscle={selectedDashboardMuscle}
+              secondaryMuscles={todaySecondaryMuscles}
+              selectedMuscle={selectedDashboardMuscle}
+              onSelectMuscle={(m) => setSelectedDashboardMuscle(m)}
+              height="h-[480px]"
+              showControls={true}
+              initialPreset={todayPrimaryMuscle === "chest" ? "chest" : "front"}
+            />
+          </div>
+
+          {/* Right Side: Biomechanical Muscle Focus Matrix */}
+          <div className="lg:col-span-5 space-y-4">
+            {/* Quick Muscle Selector for Today's Workout */}
+            <div className="p-5 rounded-2xl bg-[#08080a] border border-[#26262b] space-y-3">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 flex items-center gap-1.5">
+                <Target className="w-3.5 h-3.5 text-[#ee4d00]" />
+                <span>Today&apos;s Muscle Activation Focus</span>
+              </span>
+
+              <div className="flex flex-wrap gap-2">
+                {[todayPrimaryMuscle, ...todaySecondaryMuscles].map((m) => {
+                  const isSelected = selectedDashboardMuscle === m;
+                  const isPrimary = m === todayPrimaryMuscle;
+                  return (
+                    <button
+                      key={m}
+                      type="button"
+                      onClick={() => setSelectedDashboardMuscle(m)}
+                      className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                        isSelected
+                          ? "bg-[#ee4d00] text-white shadow-[0_0_15px_rgba(238,77,0,0.35)]"
+                          : "bg-[#111114] text-neutral-300 hover:text-white border border-[#26262b]"
+                      }`}
+                    >
+                      <span className="capitalize">{m.replace("_", " ")}</span>
+                      <span
+                        className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-bold ${
+                          isSelected ? "bg-black/30 text-white" : isPrimary ? "bg-[#ee4d00]/20 text-[#ee4d00]" : "bg-white/5 text-neutral-400"
+                        }`}
+                      >
+                        {isPrimary ? "PRIMARY" : "SECONDARY"}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Targeted Exercises in Today's Session */}
+            <div className="p-5 rounded-2xl bg-[#08080a] border border-[#26262b] space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
+                  <Activity className="w-3.5 h-3.5 text-[#ee4d00]" />
+                  <span>Programmed Movements</span>
+                </span>
+                <span className="text-[10px] font-mono text-[#ee4d00] font-bold">
+                  {todayPlan.exercises.length} Exercises Today
+                </span>
+              </div>
+
+              <div className="space-y-2 max-h-52 overflow-y-auto pr-1">
+                {todayPlan.exercises.map((ex, idx) => {
+                  const fullDef = allExercises.find((e) => e.id === ex.exerciseId);
+                  const name = fullDef?.name || ex.exerciseId;
+                  return (
+                    <Link
+                      key={idx}
+                      href={`/workout`}
+                      className="p-3 rounded-xl bg-[#111114] border border-[#26262b] hover:border-[#ee4d00]/50 transition-all flex items-center justify-between group"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="w-6 h-6 rounded-lg bg-[#ee4d00]/15 text-[#ee4d00] text-[11px] font-bold font-mono flex items-center justify-center">
+                          {idx + 1}
+                        </span>
+                        <div>
+                          <p className="text-xs font-bold text-white group-hover:text-[#ee4d00] transition-colors">{name}</p>
+                          <p className="text-[10px] text-neutral-400 font-mono">
+                            {ex.sets} sets &times; {ex.repRange} reps
+                          </p>
+                        </div>
+                      </div>
+                      <ChevronRight className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[#ee4d00] transition-colors" />
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Quick Action CTA */}
+            <Link
+              href={`/workout`}
+              className="w-full py-3.5 bg-[#ee4d00] hover:bg-[#ff5500] active:scale-95 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-[0_0_20px_rgba(238,77,0,0.3)] transition-all flex items-center justify-center gap-2"
+            >
+              <Zap className="w-4 h-4 fill-white" />
+              <span>View 8 Exercises &amp; 3D Stage</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Weekly Consistency & Quick Habit Log */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Weekly Consistency Card */}
-        <div className="lg:col-span-8 p-6 rounded-3xl bg-[#121826] border border-surface-800 space-y-4">
+        <div className="lg:col-span-8 p-6 rounded-3xl bg-[#111114] border border-[#26262b] space-y-4 shadow-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-brand-emerald" />
-              <h3 className="text-xs font-black text-white uppercase tracking-wider">
+              <Calendar className="w-4 h-4 text-[#ee4d00]" />
+              <h3 className="text-xs font-bold text-white uppercase tracking-wider">
                 Weekly Workout Consistency (5-Day Split)
               </h3>
             </div>
-            <span className="text-xs font-mono font-bold text-brand-emerald">2/5 Completed</span>
+            <span className="text-xs font-mono font-bold text-[#ee4d00]">2/5 Completed</span>
           </div>
 
           <div className="grid grid-cols-7 gap-2 pt-2">
@@ -377,21 +606,21 @@ export default function DashboardPage() {
                 key={i}
                 className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all ${
                   d.status === "completed"
-                    ? "bg-brand-emerald/10 border-brand-emerald/40 text-brand-emerald"
+                    ? "bg-[#ee4d00]/15 border-[#ee4d00] text-[#ee4d00] shadow-[0_0_10px_rgba(238,77,0,0.2)]"
                     : d.status === "rest"
-                    ? "bg-surface-900/50 border-surface-800/80 text-surface-500"
-                    : "bg-surface-900 border-surface-800 text-surface-300"
+                    ? "bg-[#08080a] border-[#26262b] text-neutral-500"
+                    : "bg-[#08080a] border-[#26262b] text-white"
                 }`}
               >
                 <span className="text-xs font-bold">{d.day}</span>
                 <span className="text-[10px] font-medium mt-0.5">{d.title}</span>
                 <div className="mt-2">
                   {d.status === "completed" ? (
-                    <CheckCircle2 className="w-4 h-4 text-brand-emerald" />
+                    <CheckCircle2 className="w-4 h-4 text-[#ee4d00]" />
                   ) : d.status === "rest" ? (
-                    <span className="text-[10px] font-bold text-surface-500">Zzz</span>
+                    <span className="text-[10px] font-bold text-neutral-500">Zzz</span>
                   ) : (
-                    <div className="w-3.5 h-3.5 rounded-full border-2 border-surface-600" />
+                    <div className="w-3.5 h-3.5 rounded-full border-2 border-neutral-600" />
                   )}
                 </div>
               </div>
@@ -400,13 +629,13 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Log Action Box */}
-        <div className="lg:col-span-4 p-6 rounded-3xl bg-[#121826] border border-surface-800 space-y-3 flex flex-col justify-between">
+        <div className="lg:col-span-4 p-6 rounded-3xl bg-[#111114] border border-[#26262b] space-y-3 flex flex-col justify-between shadow-xl">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-4 h-4 text-brand-cyan" />
-              <h3 className="text-xs font-black text-white uppercase tracking-wider">Quick Habit Entry</h3>
+              <Sparkles className="w-4 h-4 text-[#ee4d00]" />
+              <h3 className="text-xs font-bold text-white uppercase tracking-wider">Quick Habit Entry</h3>
             </div>
-            <p className="text-xs text-surface-400">Log today&apos;s weight or steps in one tap:</p>
+            <p className="text-xs text-neutral-400">Log today&apos;s weight or steps in one tap:</p>
           </div>
 
           <div className="space-y-2">
@@ -418,12 +647,12 @@ export default function DashboardPage() {
                 placeholder="Weight (kg) e.g. 79.6"
                 value={quickWeight}
                 onChange={(e) => setQuickWeight(e.target.value)}
-                className="flex-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-cyan font-mono"
+                className="flex-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
               />
               <button
                 type="button"
                 onClick={handleSaveQuickWeight}
-                className="px-3 py-2 bg-surface-800 hover:bg-surface-700 text-brand-cyan font-bold text-xs rounded-xl border border-surface-700 transition-colors"
+                className="px-4 py-2.5 bg-[#26262b] hover:bg-[#ee4d00] text-white hover:text-white font-bold text-xs rounded-xl transition-all"
               >
                 Log
               </button>
@@ -436,12 +665,12 @@ export default function DashboardPage() {
                 placeholder="Steps e.g. 10250"
                 value={quickSteps}
                 onChange={(e) => setQuickSteps(e.target.value)}
-                className="flex-1 bg-surface-900 border border-surface-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-emerald font-mono"
+                className="flex-1 bg-[#08080a] border border-[#26262b] rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#ee4d00] font-mono"
               />
               <button
                 type="button"
                 onClick={handleSaveQuickSteps}
-                className="px-3 py-2 bg-surface-800 hover:bg-surface-700 text-brand-emerald font-bold text-xs rounded-xl border border-surface-700 transition-colors"
+                className="px-4 py-2.5 bg-[#26262b] hover:bg-[#ee4d00] text-white hover:text-white font-bold text-xs rounded-xl transition-all"
               >
                 Log
               </button>
@@ -451,7 +680,7 @@ export default function DashboardPage() {
           <div className="pt-2">
             <Link
               href="/nutrition"
-              className="text-[11px] font-bold text-brand-emerald hover:underline flex items-center gap-1"
+              className="text-[11px] font-bold text-[#ee4d00] hover:underline flex items-center gap-1"
             >
               <span>+ Add Meals to Nutrition Diary</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -460,19 +689,19 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Analytics Charts Grid */}
+      {/* Analytics Charts Grid - GYM X Fiery Orange Palette */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Strength Progress Chart */}
-        <div className="p-6 rounded-3xl bg-[#121826] border border-surface-800 space-y-4">
+        <div className="p-6 rounded-3xl bg-[#111114] border border-[#26262b] space-y-4 shadow-xl">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-xs font-black text-white uppercase tracking-wider">
+              <h3 className="text-xs font-bold text-white uppercase tracking-wider">
                 Bench Press Strength Progress
               </h3>
-              <p className="text-[11px] text-surface-400">Double-progression overload timeline</p>
+              <p className="text-[11px] text-neutral-400">Double-progression overload timeline</p>
             </div>
-            <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-brand-emerald/15 text-brand-emerald border border-brand-emerald/30">
-              +2.5 kg load &middot; +4.2% e1RM
+            <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#ee4d00]/15 text-[#ee4d00] border border-[#ee4d00]/30">
+              +2.5 kg load &bull; +4.2% e1RM
             </span>
           </div>
 
@@ -480,24 +709,24 @@ export default function DashboardPage() {
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={benchPressProgression}>
                 <defs>
-                  <linearGradient id="emeraldGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#00F59B" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#00F59B" stopOpacity={0} />
+                  <linearGradient id="gymxOrangeGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#ee4d00" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#ee4d00" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="session" stroke="#64748B" fontSize={11} />
-                <YAxis stroke="#64748B" domain={[25, 45]} fontSize={11} />
+                <XAxis dataKey="session" stroke="#6b7280" fontSize={11} />
+                <YAxis stroke="#6b7280" domain={[25, 45]} fontSize={11} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: "#121826", borderColor: "#202B3F", borderRadius: "12px" }}
-                  itemStyle={{ color: "#00F59B" }}
+                  contentStyle={{ backgroundColor: "#111114", borderColor: "#26262b", borderRadius: "12px" }}
+                  itemStyle={{ color: "#ee4d00" }}
                 />
                 <Area
                   type="monotone"
                   dataKey="e1rm"
                   name="Est. 1RM (kg)"
-                  stroke="#00F59B"
+                  stroke="#ee4d00"
                   strokeWidth={2.5}
-                  fill="url(#emeraldGrad)"
+                  fill="url(#gymxOrangeGrad)"
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -505,15 +734,15 @@ export default function DashboardPage() {
         </div>
 
         {/* Body Weight Trend Chart */}
-        <div className="p-6 rounded-3xl bg-[#121826] border border-surface-800 space-y-4">
+        <div className="p-6 rounded-3xl bg-[#111114] border border-[#26262b] space-y-4 shadow-xl">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-xs font-black text-white uppercase tracking-wider">
+              <h3 className="text-xs font-bold text-white uppercase tracking-wider">
                 Body Weight Trend
               </h3>
-              <p className="text-[11px] text-surface-400">Baseline 82.0 kg &rarr; Goal 70.0 kg</p>
+              <p className="text-[11px] text-neutral-400">Baseline 82.0 kg &rarr; Goal 70.0 kg</p>
             </div>
-            <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30">
+            <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#ee4d00]/20 text-[#ee4d00] border border-[#ee4d00]/30">
               -2.2 kg Total Lost
             </span>
           </div>
@@ -522,24 +751,24 @@ export default function DashboardPage() {
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={weightChartData}>
                 <defs>
-                  <linearGradient id="cyanGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#38BDF8" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#38BDF8" stopOpacity={0} />
+                  <linearGradient id="gymxWeightGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#ee4d00" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#ee4d00" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="date" stroke="#64748B" fontSize={11} />
-                <YAxis stroke="#64748B" domain={[68, 84]} fontSize={11} />
+                <XAxis dataKey="date" stroke="#6b7280" fontSize={11} />
+                <YAxis stroke="#6b7280" domain={[68, 84]} fontSize={11} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: "#121826", borderColor: "#202B3F", borderRadius: "12px" }}
-                  itemStyle={{ color: "#38BDF8" }}
+                  contentStyle={{ backgroundColor: "#111114", borderColor: "#26262b", borderRadius: "12px" }}
+                  itemStyle={{ color: "#ee4d00" }}
                 />
                 <Area
                   type="monotone"
                   dataKey="weight"
                   name="Weight (kg)"
-                  stroke="#38BDF8"
+                  stroke="#ee4d00"
                   strokeWidth={2.5}
-                  fill="url(#cyanGrad)"
+                  fill="url(#gymxWeightGrad)"
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -548,15 +777,15 @@ export default function DashboardPage() {
       </div>
 
       {/* Weekly Muscle Volume Bar Breakdown */}
-      <div className="p-6 rounded-3xl bg-[#121826] border border-surface-800 space-y-4">
+      <div className="p-6 rounded-3xl bg-[#111114] border border-[#26262b] space-y-4 shadow-xl">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-xs font-black text-white uppercase tracking-wider">
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider">
               Weekly Muscle Hypertrophy Volume (Direct Working Sets)
             </h3>
-            <p className="text-[11px] text-surface-400">Optimal hypertrophy range: 10–20 weekly sets per muscle</p>
+            <p className="text-[11px] text-neutral-400">Optimal hypertrophy range: 10–20 weekly sets per muscle</p>
           </div>
-          <Link href="/muscle-map" className="text-xs font-bold text-brand-emerald hover:underline">
+          <Link href="/muscle-map" className="text-xs font-bold text-[#ee4d00] hover:underline">
             Open 3D Muscle Map &rarr;
           </Link>
         </div>
@@ -564,13 +793,13 @@ export default function DashboardPage() {
         <div className="h-48 w-full pt-2">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={muscleVolumeData}>
-              <XAxis dataKey="muscle" stroke="#64748B" fontSize={11} />
-              <YAxis stroke="#64748B" fontSize={11} />
+              <XAxis dataKey="muscle" stroke="#6b7280" fontSize={11} />
+              <YAxis stroke="#6b7280" fontSize={11} />
               <Tooltip
-                contentStyle={{ backgroundColor: "#121826", borderColor: "#202B3F", borderRadius: "12px" }}
-                itemStyle={{ color: "#00F59B" }}
+                contentStyle={{ backgroundColor: "#111114", borderColor: "#26262b", borderRadius: "12px" }}
+                itemStyle={{ color: "#ee4d00" }}
               />
-              <Bar dataKey="sets" name="Completed Sets" fill="#00F59B" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="sets" name="Completed Sets" fill="#ee4d00" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

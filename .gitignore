@@ -36,3 +36,6 @@ dev.db-journal
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# screenshots / temporary assets
+github.com_*.png

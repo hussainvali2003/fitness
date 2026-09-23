@@ -35,8 +35,8 @@ export const MuscleMannequin: React.FC<MuscleMannequinProps> = ({
     if (isSelected || isPrimary) {
       return (
         <meshStandardMaterial
-          color="#00F59B"
-          emissive="#00F59B"
+          color="#ee4d00"
+          emissive="#ee4d00"
           emissiveIntensity={0.65}
           roughness={0.2}
           metalness={0.4}
@@ -46,8 +46,8 @@ export const MuscleMannequin: React.FC<MuscleMannequinProps> = ({
     if (isSecondary) {
       return (
         <meshStandardMaterial
-          color="#38BDF8"
-          emissive="#38BDF8"
+          color="#ee4d00"
+          emissive="#ee4d00"
           emissiveIntensity={0.45}
           roughness={0.3}
           metalness={0.3}
@@ -56,7 +56,7 @@ export const MuscleMannequin: React.FC<MuscleMannequinProps> = ({
     }
     return (
       <meshStandardMaterial
-        color="#1E293B"
+        color="#26262b"
         roughness={0.6}
         metalness={0.2}
         opacity={0.9}

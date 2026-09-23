@@ -29,8 +29,9 @@ import {
 import { ExerciseSetRow } from "@/components/workout/ExerciseSetRow";
 import { RestTimerModal } from "@/components/workout/RestTimerModal";
 import { WorkoutSummaryModal } from "@/components/workout/WorkoutSummaryModal";
-import { HumanBodyCanvas } from "@/components/3d/HumanBodyCanvas";
+import { HumanBodyCanvasHQ } from "@/components/3d/HumanBodyCanvasHQ";
 import { FallbackBody2D } from "@/components/3d/FallbackBody2D";
+import Image from "next/image";
 import {
   Play,
   Pause,
@@ -45,6 +46,8 @@ import {
   Sparkles,
   RefreshCw,
   Box,
+  RotateCw,
+  Zap,
 } from "lucide-react";
 
 function ActiveWorkoutContent() {
@@ -143,7 +146,7 @@ function ActiveWorkoutContent() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="flex flex-col items-center gap-3">
-          <RefreshCw className="w-8 h-8 text-brand-emerald animate-spin" />
+          <RefreshCw className="w-8 h-8 text-[#ee4d00] animate-spin" />
           <p className="text-sm text-surface-400">Loading workout session...</p>
         </div>
       </div>
@@ -290,39 +293,39 @@ function ActiveWorkoutContent() {
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-16">
       {/* Top Session Control Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-3xl bg-[#121826] border border-surface-800 shadow-glass-card">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-3xl bg-[#111827] border border-[#1f293d] shadow-[0_0_25px_rgba(0,0,0,0.4)]">
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => router.push("/workout")}
-            className="p-2 text-surface-400 hover:text-white rounded-xl hover:bg-surface-800 transition-colors"
+            className="p-2 text-neutral-400 hover:text-white rounded-xl bg-[#111114] border border-[#26262b] hover:border-[#ee4d00]/50 transition-colors"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-5 h-5 text-[#ee4d00]" />
           </button>
           <div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-brand-emerald animate-pulse" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#ee4d00] animate-pulse shadow-[0_0_8px_#ee4d00]" />
               <h1 className="text-base sm:text-lg font-black text-white uppercase tracking-tight">
                 {session.title}
               </h1>
             </div>
-            <p className="text-xs text-surface-400 font-medium">
-              Exercise {activeExerciseIdx + 1} of {session.exercises.length}
+            <p className="text-xs text-neutral-400 font-mono font-medium">
+              Exercise {activeExerciseIdx + 1} of {session.exercises.length} &bull; GYM X ENGINE
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
           {/* Elapsed Timer Ticker */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-surface-900 border border-surface-700 font-mono text-sm font-bold text-white">
-            <Clock className="w-4 h-4 text-brand-emerald" />
+          <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#08080a] border border-[#26262b] font-mono text-sm font-bold text-white">
+            <Clock className="w-4 h-4 text-[#ee4d00]" />
             <span>{formatElapsed(session.durationSeconds)}</span>
             <button
               type="button"
               onClick={() => setIsTimerPaused(!isTimerPaused)}
-              className="p-1 text-surface-400 hover:text-white transition-colors"
+              className="p-1 text-neutral-400 hover:text-white transition-colors"
             >
-              {isTimerPaused ? <Play className="w-3.5 h-3.5 fill-current" /> : <Pause className="w-3.5 h-3.5" />}
+              {isTimerPaused ? <Play className="w-3.5 h-3.5 fill-white" /> : <Pause className="w-3.5 h-3.5" />}
             </button>
           </div>
 
@@ -330,7 +333,7 @@ function ActiveWorkoutContent() {
           <button
             type="button"
             onClick={handleFinishWorkout}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-brand-emerald to-brand-cyan text-black font-extrabold text-xs shadow-glow-emerald hover:brightness-110 transition-all"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#ee4d00] text-white font-extrabold text-xs shadow-[0_0_20px_rgba(238,77,0,0.35)] hover:bg-[#ff5500] transition-all"
           >
             <CheckCircle2 className="w-4 h-4" />
             <span>Finish Workout</span>
@@ -348,17 +351,17 @@ function ActiveWorkoutContent() {
               key={ex.exerciseId}
               type="button"
               onClick={() => setActiveExerciseIdx(idx)}
-              className={`flex-shrink-0 flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-xs font-bold border transition-all ${
+              className={`flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold border transition-all ${
                 isActive
-                  ? "bg-brand-emerald text-black border-brand-emerald shadow-glow-emerald"
+                  ? "bg-[#ee4d00] text-white border-[#ee4d00] shadow-[0_0_12px_rgba(238,77,0,0.35)]"
                   : isCompleted
-                  ? "bg-brand-emerald/10 text-brand-emerald border-brand-emerald/30"
-                  : "bg-surface-900 text-surface-300 border-surface-800 hover:border-surface-700"
+                  ? "bg-[#ee4d00]/15 text-[#ee4d00] border-[#ee4d00]/30"
+                  : "bg-[#111114] text-neutral-300 border-[#26262b] hover:border-[#ee4d00]/40"
               }`}
             >
               <span>{idx + 1}.</span>
               <span className="truncate max-w-[140px]">{ex.exerciseName}</span>
-              {isCompleted && <CheckCircle2 className="w-3.5 h-3.5 ml-1" />}
+              {isCompleted && <CheckCircle2 className="w-3.5 h-3.5 ml-1 text-white" />}
             </button>
           );
         })}
@@ -370,48 +373,48 @@ function ActiveWorkoutContent() {
           {/* Left Column: Set Logger & Progressive Overload Engine */}
           <div className="lg:col-span-7 space-y-5">
             {/* Header Card */}
-            <div className="p-6 rounded-3xl bg-[#121826] border border-surface-800 space-y-4">
+            <div className="p-6 rounded-3xl bg-[#111114] border border-[#26262b] shadow-2xl space-y-4">
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wider bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30">
-                    {currentExerciseDef.category} · {currentExerciseDef.equipment}
+                  <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#ee4d00]/15 text-[#ee4d00] border border-[#ee4d00]/30 shadow-[0_0_8px_rgba(238,77,0,0.2)]">
+                    {currentExerciseDef.category} &bull; {currentExerciseDef.equipment}
                   </span>
                   <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight mt-2">
                     {currentExerciseDef.name}
                   </h2>
-                  <p className="text-xs text-surface-400 mt-1">
-                    Prescribed: <strong className="text-surface-200">{currentExerciseDef.defaultSets} sets × {currentExerciseDef.repRange} reps</strong> · Rest {Math.round(currentExerciseDef.restSeconds / 60)}m
+                  <p className="text-xs text-neutral-400 mt-1">
+                    Prescribed: <strong className="text-neutral-200">{currentExerciseDef.defaultSets} sets &times; {currentExerciseDef.repRange} reps</strong> &bull; Rest {Math.round(currentExerciseDef.restSeconds / 60)}m
                   </p>
                 </div>
 
                 <div className="text-right">
-                  <span className="text-[10px] font-bold text-surface-400 uppercase">Tempo</span>
-                  <p className="text-xs font-mono font-bold text-brand-emerald">{currentExerciseDef.tempo}</p>
+                  <span className="text-[10px] font-bold text-neutral-400 uppercase">Tempo</span>
+                  <p className="text-xs font-mono font-bold text-[#ee4d00]">{currentExerciseDef.tempo}</p>
                 </div>
               </div>
 
               {/* Progressive Overload Engine Insight Box */}
               {overloadAdvice && (
-                <div className="p-4 rounded-2xl bg-brand-emerald/10 border border-brand-emerald/30 space-y-1.5">
+                <div className="p-4 rounded-2xl bg-[#ee4d00]/10 border border-[#ee4d00]/30 space-y-1.5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-brand-emerald" />
-                      <span className="text-xs font-bold text-brand-emerald uppercase tracking-wider">
+                      <Sparkles className="w-4 h-4 text-[#ee4d00]" />
+                      <span className="text-xs font-bold text-[#ee4d00] uppercase tracking-wider">
                         Progressive Overload Target
                       </span>
                     </div>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-brand-emerald/20 text-brand-emerald">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#ee4d00]/20 text-[#ee4d00]">
                       {overloadAdvice.trendBadge}
                     </span>
                   </div>
                   <p className="text-xs font-semibold text-white">{overloadAdvice.message}</p>
-                  <p className="text-[11px] text-surface-300 leading-relaxed">{overloadAdvice.detail}</p>
+                  <p className="text-[11px] text-neutral-300 leading-relaxed">{overloadAdvice.detail}</p>
                 </div>
               )}
             </div>
 
             {/* Set Logging List */}
-            <div className="p-6 rounded-3xl bg-[#121826] border border-surface-800 space-y-3">
+            <div className="p-6 rounded-3xl bg-[#111114] border border-[#26262b] shadow-2xl space-y-3">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
                   Logged Sets ({currentLoggedExercise.sets.filter((s) => s.completed).length}/{currentLoggedExercise.sets.length})
@@ -419,7 +422,7 @@ function ActiveWorkoutContent() {
                 <button
                   type="button"
                   onClick={addSet}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-800 hover:bg-surface-700 text-brand-emerald font-bold text-xs border border-surface-700 transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#08080a] hover:bg-[#26262b] text-[#ee4d00] font-bold text-xs border border-[#26262b] transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add Set</span>
@@ -438,12 +441,12 @@ function ActiveWorkoutContent() {
               ))}
 
               {/* Next Exercise navigation footer */}
-              <div className="pt-4 flex items-center justify-between border-t border-surface-800 mt-4">
+              <div className="pt-4 flex items-center justify-between border-t border-[#26262b] mt-4">
                 <button
                   type="button"
                   disabled={activeExerciseIdx === 0}
                   onClick={() => setActiveExerciseIdx((prev) => prev - 1)}
-                  className="px-4 py-2 text-xs font-bold text-surface-300 disabled:opacity-30 hover:text-white transition-colors"
+                  className="px-4 py-2 text-xs font-bold text-neutral-400 disabled:opacity-30 hover:text-white transition-colors"
                 >
                   &larr; Previous Exercise
                 </button>
@@ -451,71 +454,83 @@ function ActiveWorkoutContent() {
                   type="button"
                   disabled={activeExerciseIdx >= session.exercises.length - 1}
                   onClick={() => setActiveExerciseIdx((prev) => prev + 1)}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-surface-800 hover:bg-surface-700 text-white font-bold text-xs border border-surface-700 disabled:opacity-30 transition-colors"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#08080a] hover:bg-[#26262b] text-white font-bold text-xs border border-[#26262b] disabled:opacity-30 transition-colors"
                 >
                   <span>Next Exercise</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#ee4d00]" />
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Right Column: 3D / 2D Interactive Anatomy Visualizer */}
+          {/* Right Column: 3D / HQ GIF Interactive Anatomy Visualizer */}
           <div className="lg:col-span-5 space-y-5">
-            <div className="p-6 rounded-3xl bg-[#121826] border border-surface-800 space-y-4">
+            <div className="p-6 rounded-3xl bg-[#111114] border border-[#26262b] shadow-2xl space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Box className="w-4 h-4 text-brand-emerald" />
+                  <RotateCw className="w-4 h-4 text-[#ee4d00]" />
                   <h3 className="text-xs font-extrabold text-white uppercase tracking-wider">
-                    Muscle Target Visualizer
+                    {viewMode3D ? "3D Biomechanical Execution" : "HQ Animated Loop"}
                   </h3>
                 </div>
                 <button
                   type="button"
                   onClick={() => setViewMode3D(!viewMode3D)}
-                  className="text-[11px] font-bold text-brand-emerald hover:underline"
+                  className="text-[11px] font-bold text-[#ee4d00] hover:underline flex items-center gap-1"
                 >
-                  Switch to {viewMode3D ? "2D Map" : "3D Orbit"}
+                  <Zap className="w-3 h-3" />
+                  <span>Switch to {viewMode3D ? "HQ GIF Loop" : "3D Stage"}</span>
                 </button>
               </div>
 
               {/* Visualization Canvas */}
               {viewMode3D ? (
-                <HumanBodyCanvas
-                  primaryMuscle={currentExerciseDef.primaryMuscle}
-                  secondaryMuscles={currentExerciseDef.secondaryMuscles}
-                  height="h-[360px]"
-                />
+                <div className="rounded-2xl overflow-hidden border border-[#26262b] bg-[#08080a]">
+                  <HumanBodyCanvasHQ
+                    exerciseId={currentExerciseDef.id}
+                    primaryMuscle={currentExerciseDef.primaryMuscle}
+                    secondaryMuscles={currentExerciseDef.secondaryMuscles}
+                    height="h-[400px]"
+                    showControls={true}
+                    enableAutoRotate={false}
+                    initialPreset="front"
+                  />
+                </div>
               ) : (
-                <FallbackBody2D
-                  primaryMuscle={currentExerciseDef.primaryMuscle}
-                  secondaryMuscles={currentExerciseDef.secondaryMuscles}
-                />
+                <div className="relative w-full h-[400px] rounded-2xl overflow-hidden border border-[#26262b] bg-[#08080a]">
+                  <Image
+                    src={`/exercises/${currentExerciseDef.id}.gif`}
+                    alt={currentExerciseDef.name}
+                    fill
+                    unoptimized
+                    className="object-cover"
+                  />
+                </div>
               )}
 
               {/* Form Cues & Common Mistakes */}
               <div className="space-y-3 pt-2">
-                <div className="p-3.5 rounded-2xl bg-surface-900/80 border border-surface-800">
-                  <p className="text-xs font-bold text-brand-emerald uppercase tracking-wider mb-1.5">
+                <div className="p-3.5 rounded-2xl bg-[#08080a] border border-[#26262b]">
+                  <p className="text-xs font-bold text-[#ee4d00] uppercase tracking-wider mb-1.5">
                     Form Cues
                   </p>
                   <ul className="space-y-1">
                     {currentExerciseDef.formCues.map((cue, i) => (
-                      <li key={i} className="text-xs text-surface-300 flex items-start gap-2">
-                        <span className="text-brand-emerald font-bold">•</span>
+                      <li key={i} className="text-xs text-neutral-300 flex items-start gap-2">
+                        <span className="text-[#ee4d00] font-bold">&bull;</span>
                         <span>{cue}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-surface-900/80 border border-surface-800">
+                <div className="p-3.5 rounded-2xl bg-[#08080a] border border-[#26262b]">
                   <p className="text-xs font-bold text-rose-400 uppercase tracking-wider mb-1.5">
                     Avoid Mistakes
                   </p>
                   <ul className="space-y-1">
                     {currentExerciseDef.commonMistakes.map((m, i) => (
-                      <li key={i} className="text-xs text-surface-300 flex items-start gap-2">
+                      <li key={i} className="text-xs text-neutral-300 flex items-start gap-2">
                         <span className="text-rose-400 font-bold">&times;</span>
                         <span>{m}</span>
                       </li>
@@ -556,7 +571,7 @@ export default function ActiveWorkoutPage() {
       fallback={
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="flex flex-col items-center gap-3">
-            <RefreshCw className="w-8 h-8 text-brand-emerald animate-spin" />
+            <RefreshCw className="w-8 h-8 text-[#ee4d00] animate-spin" />
             <p className="text-sm text-surface-400">Loading workout session...</p>
           </div>
         </div>

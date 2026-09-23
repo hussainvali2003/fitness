@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.className} bg-[#080B11] text-surface-100 min-h-screen flex antialiased selection:bg-brand-emerald selection:text-black`}>
+      <body className={`${inter.className} bg-[#08080a] text-[#ffffff] min-h-screen flex antialiased selection:bg-[#ee4d00] selection:text-white`}>
         {/* Left Desktop Navigation */}
         <Sidebar />
 

@@ -130,7 +130,7 @@ export default function TwelveWeekProgramPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-1 rounded-lg text-xs font-black uppercase tracking-wider bg-brand-emerald/15 text-brand-emerald border border-brand-emerald/30">
+            <span className="px-2.5 py-1 rounded-lg text-xs font-black uppercase tracking-wider bg-[#ee4d00]/15 text-[#ee4d00] border border-[#ee4d00]/30">
               Transformation Journey
             </span>
             <span className="text-xs text-surface-400 font-semibold font-mono">12-Week Roadmap</span>
@@ -144,23 +144,23 @@ export default function TwelveWeekProgramPage() {
         </div>
 
         {/* Week Navigator */}
-        <div className="flex items-center gap-2 bg-[#121826] p-1.5 rounded-2xl border border-surface-800">
+        <div className="flex items-center gap-2 bg-[#111114] p-1.5 rounded-2xl border border-[#26262b]">
           <button
             type="button"
             disabled={activeWeek <= 1}
             onClick={() => setActiveWeek((w) => w - 1)}
-            className="p-2 text-surface-400 hover:text-white disabled:opacity-30 rounded-xl hover:bg-surface-800 transition-colors"
+            className="p-2 text-neutral-400 hover:text-white disabled:opacity-30 rounded-xl hover:bg-[#26262b] transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
-          <span className="px-3 font-mono font-black text-sm text-brand-emerald">
+          <span className="px-3 font-mono font-black text-sm text-[#ee4d00]">
             WEEK {activeWeek} / 12
           </span>
           <button
             type="button"
             disabled={activeWeek >= 12}
             onClick={() => setActiveWeek((w) => w + 1)}
-            className="p-2 text-surface-400 hover:text-white disabled:opacity-30 rounded-xl hover:bg-surface-800 transition-colors"
+            className="p-2 text-neutral-400 hover:text-white disabled:opacity-30 rounded-xl hover:bg-[#26262b] transition-colors"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -168,7 +168,7 @@ export default function TwelveWeekProgramPage() {
       </div>
 
       {/* 12-Week Timeline Bar */}
-      <div className="p-4 rounded-3xl bg-[#121826] border border-surface-800">
+      <div className="p-4 rounded-3xl bg-[#111114] border border-[#26262b]">
         <div className="flex items-center justify-between gap-1 overflow-x-auto pb-1 scrollbar-none">
           {Array.from({ length: 12 }).map((_, i) => {
             const wNum = i + 1;
@@ -181,10 +181,10 @@ export default function TwelveWeekProgramPage() {
                 onClick={() => setActiveWeek(wNum)}
                 className={`flex-1 min-w-[70px] py-2.5 px-2 rounded-xl text-center transition-all ${
                   isCurrent
-                    ? "bg-brand-emerald text-black font-extrabold shadow-glow-emerald"
+                    ? "bg-[#ee4d00] text-[#08080a] font-black shadow-[0_0_15px_rgba(56,189,248,0.3)]"
                     : isCompleted
-                    ? "bg-brand-emerald/15 text-brand-emerald border border-brand-emerald/30 font-bold"
-                    : "bg-surface-900 text-surface-500 border border-surface-800 font-medium"
+                    ? "bg-[#ee4d00]/15 text-[#ee4d00] border border-[#ee4d00]/30 font-bold"
+                    : "bg-[#08080a] text-neutral-500 border border-[#26262b] font-medium"
                 }`}
               >
                 <div className="text-[10px] uppercase">{wNum <= 4 ? "Month 1" : wNum <= 8 ? "Month 2" : "Month 3"}</div>
@@ -197,60 +197,60 @@ export default function TwelveWeekProgramPage() {
 
       {/* Selected Week Analytics Summary */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800">
-          <span className="text-[10px] text-surface-400 font-bold uppercase">Workouts</span>
-          <p className="text-xl font-black text-brand-emerald font-mono mt-1">
+        <div className="p-4 rounded-2xl bg-[#111114] border border-[#26262b]">
+          <span className="text-[10px] text-neutral-400 font-bold uppercase">Workouts</span>
+          <p className="text-xl font-black text-[#ee4d00] font-mono mt-1">
             {currentSummary.workoutsCompleted} / {currentSummary.totalWorkouts}
           </p>
-          <p className="text-[10px] text-surface-500">100% adherence</p>
+          <p className="text-[10px] text-neutral-500">100% adherence</p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800">
-          <span className="text-[10px] text-surface-400 font-bold uppercase">Avg Weight</span>
+        <div className="p-4 rounded-2xl bg-[#111114] border border-[#26262b]">
+          <span className="text-[10px] text-neutral-400 font-bold uppercase">Avg Weight</span>
           <p className="text-xl font-black text-white font-mono mt-1">
             {currentSummary.avgWeightKg} kg
           </p>
-          <p className="text-[10px] font-bold text-brand-emerald">{currentSummary.weightDeltaKg} kg this week</p>
+          <p className="text-[10px] font-bold text-[#10b981]">{currentSummary.weightDeltaKg} kg this week</p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800">
-          <span className="text-[10px] text-surface-400 font-bold uppercase">Avg Steps</span>
-          <p className="text-xl font-black text-brand-cyan font-mono mt-1">
+        <div className="p-4 rounded-2xl bg-[#111114] border border-[#26262b]">
+          <span className="text-[10px] text-neutral-400 font-bold uppercase">Avg Steps</span>
+          <p className="text-xl font-black text-[#ee4d00] font-mono mt-1">
             {currentSummary.avgSteps.toLocaleString()}
           </p>
-          <p className="text-[10px] text-surface-500">Target: 10,000</p>
+          <p className="text-[10px] text-neutral-500">Target: 10,000</p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800">
-          <span className="text-[10px] text-surface-400 font-bold uppercase">Avg Protein</span>
-          <p className="text-xl font-black text-brand-amber font-mono mt-1">
+        <div className="p-4 rounded-2xl bg-[#111114] border border-[#26262b]">
+          <span className="text-[10px] text-neutral-400 font-bold uppercase">Avg Protein</span>
+          <p className="text-xl font-black text-amber-400 font-mono mt-1">
             {currentSummary.avgProteinG} g
           </p>
-          <p className="text-[10px] text-surface-500">Target: 135g</p>
+          <p className="text-[10px] text-neutral-500">Target: 135g</p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800">
-          <span className="text-[10px] text-surface-400 font-bold uppercase">Avg Calories</span>
-          <p className="text-xl font-black text-brand-rose font-mono mt-1">
+        <div className="p-4 rounded-2xl bg-[#111114] border border-[#26262b]">
+          <span className="text-[10px] text-neutral-400 font-bold uppercase">Avg Calories</span>
+          <p className="text-xl font-black text-rose-400 font-mono mt-1">
             {currentSummary.avgCalories} kcal
           </p>
-          <p className="text-[10px] text-surface-500">Target: 1,850</p>
+          <p className="text-[10px] text-neutral-500">Target: 1,850</p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#121826] border border-surface-800">
-          <span className="text-[10px] text-surface-400 font-bold uppercase">Strength Delta</span>
-          <p className="text-xl font-black text-brand-purple font-mono mt-1">
+        <div className="p-4 rounded-2xl bg-[#111114] border border-[#26262b]">
+          <span className="text-[10px] text-neutral-400 font-bold uppercase">Strength Delta</span>
+          <p className="text-xl font-black text-[#ee4d00] font-mono mt-1">
             +{currentSummary.strengthDeltaPct}%
           </p>
-          <p className="text-[10px] text-brand-emerald font-semibold">Overload active</p>
+          <p className="text-[10px] text-[#10b981] font-semibold">Overload active</p>
         </div>
       </div>
 
       {/* Achievements & Next Week Focus */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Achievements Card */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#121826] border border-surface-800 space-y-4">
-          <div className="flex items-center gap-2 text-brand-emerald">
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#111114] border border-[#26262b] space-y-4">
+          <div className="flex items-center gap-2 text-[#ee4d00]">
             <Trophy className="w-5 h-5" />
             <h3 className="text-xs font-black uppercase tracking-wider">
               Week {activeWeek} Performance Review
@@ -261,9 +261,9 @@ export default function TwelveWeekProgramPage() {
             {currentSummary.achievements.map((item, idx) => (
               <div
                 key={idx}
-                className="flex items-start gap-3 p-3 rounded-2xl bg-brand-emerald/10 border border-brand-emerald/20 text-xs text-surface-200"
+                className="flex items-start gap-3 p-3 rounded-2xl bg-[#08080a] border border-[#26262b] text-xs text-neutral-200"
               >
-                <CheckCircle2 className="w-4 h-4 text-brand-emerald flex-shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-[#ee4d00] flex-shrink-0 mt-0.5" />
                 <span className="leading-relaxed">{item}</span>
               </div>
             ))}
@@ -271,15 +271,15 @@ export default function TwelveWeekProgramPage() {
         </div>
 
         {/* Next Week Focus */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#121826] border border-surface-800 space-y-4 flex flex-col justify-between">
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#111114] border border-[#26262b] space-y-4 flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 text-brand-cyan mb-3">
+            <div className="flex items-center gap-2 text-[#ee4d00] mb-3">
               <Target className="w-5 h-5" />
               <h3 className="text-xs font-black uppercase tracking-wider">
                 Next Week Strategic Focus
               </h3>
             </div>
-            <p className="text-xs text-surface-300 leading-relaxed bg-surface-900 p-4 rounded-2xl border border-surface-800">
+            <p className="text-xs text-neutral-300 leading-relaxed bg-[#08080a] p-4 rounded-2xl border border-[#26262b]">
               {currentSummary.focusNextWeek}
             </p>
           </div>
@@ -287,7 +287,7 @@ export default function TwelveWeekProgramPage() {
           <div className="pt-4">
             <Link
               href="/workout"
-              className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-brand-emerald to-brand-cyan text-black font-extrabold text-xs uppercase tracking-wider shadow-glow-emerald hover:brightness-110 flex items-center justify-center gap-2 transition-all"
+              className="w-full py-3.5 px-4 rounded-2xl bg-[#ee4d00] text-[#08080a] font-extrabold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:brightness-110 flex items-center justify-center gap-2 transition-all"
             >
               <span>View Week {activeWeek} Workout Program</span>
               <ChevronRight className="w-4 h-4" />
