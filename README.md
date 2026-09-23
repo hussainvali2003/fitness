@@ -1,186 +1,293 @@
-# Apex Fitness &middot; Hussain's 12-Week Transformation Dashboard
+# ⚡ GYM X &middot; Hussain's 12-Week Biomechanical Transformation Hub
 
-A production-grade, personal fitness tracking web application engineered for daily gym use, progressive overload tracking, 3D human muscle anatomy visualization, macro/water/sleep tracking, and 12-week body transformation roadmapping.
+<div align="center">
 
----
+![GYM X Banner](public/gymx_hero.jpg)
 
-## 1. Features & Highlights
+[![Next.js](https://img.shields.io/badge/Next.js-14.2_App_Router-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0_Strict-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Three.js](https://img.shields.io/badge/Three.js-R128_WebGL-049EF4?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
+[![React Three Fiber](https://img.shields.io/badge/R3F-8.16-black?style=for-the-badge&logo=react&logoColor=white)](https://docs.pmnd.rs/react-three-fiber/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4_Obsidian_Dark-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+[![Tests](https://img.shields.io/badge/Tests-100%25_Passing-brightgreen?style=for-the-badge&logo=jest&logoColor=white)](scripts/test-logic.js)
 
-- **Dynamic 5-Day Workout System**: Tailored for Hussain's 5-day split:
-  - **Monday (Push)**: Chest + Shoulders + Triceps + Incline Cardio Finisher
-  - **Tuesday (Pull)**: Back + Biceps + Core + Cardio
-  - **Wednesday (Legs + Core)**: Quads + Hamstrings + Calves + Core
-  - **Thursday (Upper Body)**: Incline Press, Lat Pulldowns, Rows, Delts & Arms
-  - **Friday (Lower + Conditioning)**: Leg Press, Hamstrings, Calves + 3-Round HIIT Conditioning
-  - **Saturday & Sunday**: Active Recovery, Hydration & Weekly Sunday Review
-- **Dedicated Live Workout Logger**:
-  - Focus-optimized gym interface with large numeric steppers (`[-] 30kg [+]`, `[-] 8 reps [+]`).
-  - Automatically recalls and compares against previous workout performance.
-  - Interactive auto-countdown rest timer (60s, 90s, 150s) with audio chime.
-  - In-flight autosave to LocalStorage (immune to browser refreshes & gym dead-zones).
-- **Rule-Based Progressive Overload Engine**:
-  - Deterministic double-progression model recommending exact loads (+2.5kg / +2.0kg) or rep targets.
-  - Transparent explanations with no fake AI claims.
-- **Interactive 3D Human Body & Muscle Visualizer**:
-  - Built with **Three.js & React Three Fiber**.
-  - OrbitControls (rotate, zoom, pan, Front view, Back view, Reset camera).
-  - Dynamic highlight materials for Primary muscle (glowing emerald), Secondary muscles (vivid cyan), and inactive muscles (obsidian).
-  - Interactive 2D SVG Anatomical fallback for quick inspections and mobile devices.
-- **Full Health & Habit Tracking Suites**:
-  - **Body Weight & Girth**: Daily logging with 7-day moving averages and circumference delta trackers (Waist, Chest, Arms, Thighs, Hips, Neck).
-  - **Nutrition & Macros**: 1,850 kcal & 135g protein targets with pre-seeded gym food library and meal buckets.
-  - **Water Tracker**: Circular progress ring with quick-add buttons (+250ml, +500ml, +1L).
-  - **Sleep Tracker**: Duration calculation, bedtime/wake-time logs, and quality ratings.
-  - **Recovery & Readiness**: Subjective ratings (Energy, Soreness, Stress) to determine CNS readiness.
-  - **Daily Steps**: 10,000 steps target with weekly consistency charts.
-- **Supabase Free Tier & Vercel Ready**:
-  - Fully compatible with Supabase Free PostgreSQL and Prisma ORM.
-  - Zero-config local offline storage mode with 1-click JSON backup export and import.
-- **Android Health Connect Abstraction**:
-  - Decoupled `HealthDataProvider` interface, `ManualHealthProvider`, and `HealthConnectProvider` bridge.
+**A state-of-the-art, hyper-realistic personal bodybuilding & fitness web application engineered for daily gym execution, 3D anatomical biomechanics, slow-motion form guidance, deterministic progressive overload, and 12-week body recomposition tracking.**
+
+[Live Demo](http://localhost:3000) &bull; [Architecture & System Flows](ARCHITECTURE_AND_FLOWS.md) &bull; [Exercise Encyclopedia](EXERCISES.md) &bull; [Changelog](CHANGELOG.md)
+
+</div>
 
 ---
 
-## 2. Tech Stack
+## 📋 Executive Overview
 
-- **Framework**: [Next.js 14 (App Router)](https://nextjs.org/) + TypeScript
-- **Styling & Design System**: Tailwind CSS (Athletic Obsidian & Electric Emerald palette), Lucide Icons, Glassmorphism
-- **3D Visualization**: [Three.js](https://threejs.org/), `@react-three/fiber`, `@react-three/drei`
-- **Charts & Graphs**: [Recharts](https://recharts.org/)
-- **Database & ORM**: Supabase (Free Tier PostgreSQL) + Prisma ORM
-- **State & Offline Storage**: LocalStorage sync & React hooks
-- **Celebration Effects**: `canvas-confetti`
+**GYM X** transforms conventional fitness logging into an interactive, high-tech athletic command center. Designed with an **ultra-premium Obsidian Dark aesthetic** (`#08080a` obsidian, `#111114` dark matte charcoal, `#26262b` border, and `#ee4d00` fiery orange neon), the platform integrates a real-time **3D Human Anatomy Engine**, **29 high-definition looping exercise GIF tutorials**, and automated biomechanical form cues for all 23 exercises across a rigorous 5-day hypertrophy program.
+
+### Key Metrics & Targets for Hussain
+- **Starting Weight**: 82.0 kg &rarr; **Current Weight**: 79.8 kg &rarr; **Target Weight**: 70.0 kg
+- **Calorie Budget**: 1,850 kcal/day (40% Protein, 35% Carb, 25% Fat)
+- **Protein Target**: 125g &ndash; 140g/day
+- **Hydration**: 3.0 Liters/day
+- **Daily Activity**: 10,000 Steps/day
+- **Sleep Target**: 7.5 Hours/night
 
 ---
 
-## 3. Project Structure
+## 🌟 Core System Modules
+
+### 1. 🦾 3D Live Biomechanics Stage (`HumanBodyCanvasHQ`)
+- **Real-Time 3D Musculoskeletal Model**: Built with `@react-three/fiber` and Three.js, rendering realistic human anatomical proportions with distinct, organic muscle groups:
+  - **Chest**: Clavicular (Upper), Sternal (Mid-Pec), and Costal (Lower) heads.
+  - **Deltoids**: Anterior, Lateral, and Posterior heads with 3-dimensional caps.
+  - **Arms**: Biceps Brachii (Anterior Peak) and Triceps Brachii (Lateral, Medial, and Long Head horseshoes).
+  - **Back**: Flaring Latissimus Dorsi V-taper wings, Rhomboids, and Middle Trapezius.
+  - **Core**: 6-Pack Rectus Abdominis with Linea Alba trench and External Obliques.
+  - **Legs**: Fully articulated Quadriceps with Vastus Medialis teardrops, Hamstrings, and Gastrocnemius Calves.
+- **Dynamic 3D Equipment Models**:
+  - Olympic Barbell with knurled bar and 20kg GYM X fiery orange rimmed plates.
+  - Hex Dumbbells with chrome knurled handles and weighted rubber heads.
+  - Dual Cable Crossover Pulleys with overhead crossbars and tension wires.
+  - Wide Grip Lat Pulldown Bar and angled grips.
+  - 45-Degree Incline Leg Press Sled with dual sliding plate horns.
+  - Flat Gym Bench with leather padding and steel subframes.
+  - Overhead Pull-up Rig for hanging core exercises.
+- **Interactive Stage Controls**: 360° touch/mouse orbit controls, camera presets (`Front`, `Back`, `Side`, `Chest Zoom`, `Core`, `Legs`), play/pause state toggle, and variable playback speeds (0.5x, 1x, 2x).
+
+### 2. 🎬 29 HQ Biomechanical Looping Animations
+- **Zero Broken Image Architecture**: Every single exercise card across all 5 workout days is backed by a custom-rendered, high-fidelity GIF loop with bulletproof SVG fallback error handling.
+- **Slow, Form-Focused Cadence ("thora slowly slowly")**: Each animation runs at **~115ms per frame (~3.22 seconds per rep cycle)**, providing crystal-clear visualization of:
+  - **Eccentric Stretch (3s)**: Controlled lowering with angle guides (`45° Tuck`, `90° Knee Angle`, `Hip Hinge`).
+  - **Isometric Bottom Pause (1s)**: Peak stretch with deep tendon safety alignment.
+  - **Concentric Explosion (1s)**: High-force acceleration through target levers.
+  - **Peak Contraction Squeeze (1s)**: Agonist muscle bellies ignite with multi-layered `#ee4d00` neon bloom.
+- **Instructional HUD Overlays**:
+  - **Top Bar**: GYM X 3D HD Badge, Exercise Title, and real-time **Active Tension** progress meter.
+  - **Bottom Bar**: Target Muscle Agonist, exact Biomechanical Form Cue, and real-time Rep Phase.
+
+### 3. ⚡ 5-Day Hypertrophy Program
+| Day | Split | Primary Focus Muscles | Total Exercises | Estimated Time | Finisher |
+|:---|:---|:---|:---:|:---:|:---|
+| **Monday** | **PUSH** | Chest, Front Delts, Side Delts, Triceps | 8 Exercises | 60 min | 10 min 12% Incline Treadmill (4.5 km/h) |
+| **Tuesday** | **PULL** | Lats, Mid-Back, Rear Delts, Biceps, Core | 9 Exercises | 60 min | 10–15 min Brisk Recovery Walk |
+| **Wednesday** | **LEGS + CORE** | Quads, Hamstrings, Calves, Abdominals | 7 Exercises | 55 min | Gentle Recovery Stroll (No HIIT) |
+| **Thursday** | **UPPER BODY** | Clavicular Chest, Lats, Deltoids, Arms | 8 Exercises | 60 min | 10–15 min Incline Walking |
+| **Friday** | **LOWER + COND** | Quad Hypertrophy, Calves, 3-Round HIIT | 4 Exercises | 55 min | 3 Rounds: Jumping Jacks, High Knees, Mountain Climbers |
+| **Saturday** | **ACTIVE RECOVERY** | Full Body Mobility, Hydration | &mdash; | &mdash; | 10k Steps Walk + Water Goal |
+| **Sunday** | **REST & REVIEW** | CNS Deload, Weekly Check-in | &mdash; | &mdash; | 7-Day Average Weight Analysis |
+
+### 4. 📈 Deterministic Progressive Overload Engine
+- Eliminates guesswork by enforcing scientific double progression:
+  - If target rep range is achieved across all sets &rarr; **Increase load (+2.5 kg for compounds, +2.0 kg for isolations)**.
+  - If top sets fall below ceiling &rarr; **Maintain load and add repetitions until ceiling is hit**.
+  - If reps regress significantly &rarr; **Flag fatigue warning, recommend CNS recovery or form reset**.
+
+### 5. 🏋️‍♂️ Live Gym Session Logger
+- Large numeric touch steppers optimized for sweaty gym fingers (`[-] 30kg [+]`, `[-] 10 reps [+]`).
+- Auto-countdown rest timers with visual progress bars and audio chimes (60s, 90s, 120s, 150s).
+- Previous set comparison indicators (`vs last: 28kg x 10 (+2kg PR!)`).
+- Full offline persistence via LocalStorage: sessions persist across page refreshes, tab switches, and mobile network dropouts.
+
+### 6. 📊 360° Health & Body Recomposition Suite
+- **Body Weight & Circumferences**: 7-day rolling moving averages, weekly weight trend deltas, and multi-point tape measurements (Waist, Chest, Arms, Thighs, Hips, Neck).
+- **Nutrition & Macros**: Daily target progress (1,850 kcal & 135g protein), dynamic meal bucket logging, and interactive food library.
+- **Hydration Tracker**: Real-time fluid progress bar with quick-add buttons (+250ml, +500ml, +1000ml).
+- **Sleep & Recovery**: Sleep duration, sleep quality index, and subjective CNS readiness scores (Energy, Soreness, Stress).
+- **Step Cadence**: Daily 10,000 step counter with 7-day consistency bar charts.
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    Client[Next.js 14 Client App / App Router]
+    
+    subgraph UI_Layer [Obsidian Dark UI Layer]
+        Dashboard[Gym X Dashboard]
+        WorkoutEngine[Workout Routine & 3D Stage]
+        ActiveSession[Live Workout Logger & Rest Timer]
+        NutritionTracker[Macro & Water Rings]
+        RecoveryHub[Sleep & Readiness Metrics]
+    end
+
+    subgraph 3D_Biomechanics [3D Biomechanics Engine]
+        R3FCanvas[HumanBodyCanvasHQ / Three.js Canvas]
+        Kinematics[ExerciseBiomechanicsAnimator Engine]
+        HumanModel[RealisticHumanModel & Dynamic Shaders]
+        Equipment3D[Barbells / Dumbbells / Sled / Cables]
+    end
+
+    subgraph Media_Engine [Visual Media Engine]
+        GIFEngine[29 HQ Looping Animated GIFs]
+        StudioHUD[Active Tension & Angle Cues]
+        ErrorFallback[SVG Biomechanical Fallback Guard]
+    end
+
+    subgraph Data_Layer [Data & Persistence Layer]
+        SeedData[Deterministic Exercise & Program Seed Data]
+        LocalStorageSync[Client LocalStorage Engine]
+        PrismaORM[Prisma Client ORM]
+        SupabaseDB[(Supabase PostgreSQL Free Tier)]
+    end
+
+    Client --> UI_Layer
+    WorkoutEngine --> 3D_Biomechanics
+    WorkoutEngine --> Media_Engine
+    3D_Biomechanics --> Kinematics
+    Kinematics --> HumanModel
+    Kinematics --> Equipment3D
+    UI_Layer --> Data_Layer
+    Data_Layer --> PrismaORM
+    PrismaORM --> SupabaseDB
+```
+
+---
+
+## 📁 Repository Directory Structure
 
 ```
-apex-fitness/
+fitness/
+├── public/                                  # Static media & exercise animations
+│   ├── exercises/                           # 29 HQ Looping Exercise GIFs (All 23 exercises + aliases)
+│   │   ├── bench_press.gif
+│   │   ├── incline_db_press.gif
+│   │   ├── machine_chest_press.gif
+│   │   ├── cable_fly.gif
+│   │   ├── lat_pulldown.gif
+│   │   ├── leg_press.gif
+│   │   ├── romanian_deadlift.gif
+│   │   └── ... (29 total verified GIF files)
+│   ├── gymx_hero.jpg                        # GYM X Hero Banner asset
+│   ├── sadique_hero.gif                     # Sadique Amin transformation GIF
+│   └── gymx_sadique_duo.gif                 # Side-by-side athlete comparison
 ├── prisma/
-│   └── schema.prisma            # Prisma schema for Supabase / PostgreSQL / SQLite
+│   └── schema.prisma                        # Database schema (Workouts, Sets, Profiles, Macros)
 ├── scripts/
-│   └── test-logic.js            # Automated unit tests for progressive overload & math
+│   ├── generate_all_23_exercise_gifs.py     # Python PIL animation engine (Slow & educational)
+│   ├── verify_exercise_assets.py            # Automated asset completeness verifier
+│   └── test-logic.js                        # Double-progression & 1RM automated test suite
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx           # Dark athletic shell & navigations
-│   │   ├── page.tsx             # Main dashboard
-│   │   ├── globals.css          # Design system tokens & glassmorphism
+│   │   ├── layout.tsx                       # Dark obsidian layout shell & navigation
+│   │   ├── page.tsx                         # Dashboard with hero toggle & quick metrics
+│   │   ├── globals.css                      # GYM X design system tokens & animations
 │   │   ├── workout/
-│   │   │   ├── page.tsx         # 5-day split overview & exercise sequence
-│   │   │   └── active/page.tsx  # Live Workout Logger & Rest Timer mode
-│   │   ├── exercises/
-│   │   │   ├── page.tsx         # Searchable exercise database
-│   │   │   └── [id]/page.tsx    # Exercise detail with 3D anatomy viewer
-│   │   ├── muscle-map/
-│   │   │   └── page.tsx         # 3D & 2D Interactive anatomical body map
-│   │   ├── program/
-│   │   │   └── page.tsx         # 12-Week Transformation roadmap
-│   │   ├── body/
-│   │   │   └── page.tsx         # Body weight, girth & 7-day average tracking
-│   │   ├── nutrition/
-│   │   │   └── page.tsx         # Macro logger, food library & water
-│   │   ├── steps/
-│   │   │   └── page.tsx         # Steps tracker & weekly charts
-│   │   ├── recovery/
-│   │   │   └── page.tsx         # Sleep & subjective readiness scores
-│   │   ├── history/
-│   │   │   └── page.tsx         # Past workout sessions & exercise details
-│   │   ├── goals/
-│   │   │   └── page.tsx         # Milestones & Personal Records (PRs)
-│   │   └── settings/
-│   │       └── page.tsx         # Profile customization, Supabase & JSON export/import
+│   │   │   ├── page.tsx                     # Workout overview with 3D Live Stage & Cards
+│   │   │   └── active/page.tsx              # Live Session execution with rest timers
+│   │   ├── exercises/                       # Searchable exercise database & guides
+│   │   ├── muscle-map/                      # Interactive full-body 3D muscle heatmap
+│   │   ├── program/                         # 12-Week progression roadmap
+│   │   ├── body/                            # Weight, circumferences & 7-day rolling avg
+│   │   ├── nutrition/                       # Macros, meal buckets & hydration
+│   │   ├── steps/                           # 10k step tracker & activity charts
+│   │   ├── recovery/                        # Sleep logs & CNS readiness ratings
+│   │   ├── history/                         # Past sessions & volume progression
+│   │   ├── goals/                           # Milestones & PR badges
+│   │   └── settings/                        # Profile configuration & data export/import
 │   ├── components/
 │   │   ├── 3d/
-│   │   │   ├── HumanBodyCanvas.tsx  # R3F Canvas wrapper with controls
-│   │   │   ├── MuscleMannequin.tsx  # 3D Mannequin geometry & muscle shaders
-│   │   │   └── FallbackBody2D.tsx   # Interactive SVG anatomical fallback
+│   │   │   ├── RealisticHumanModel.tsx      # Multi-muscle human anatomy with glowing shaders
+│   │   │   ├── ExerciseBiomechanicsAnimator.tsx # Kinematic joint physics & 3D equipment
+│   │   │   ├── HumanBodyCanvasHQ.tsx        # Camera controls, preset angles & R3F canvas
+│   │   │   └── FallbackBody2D.tsx           # Scalable 2D SVG fallback
 │   │   ├── layout/
-│   │   │   ├── Sidebar.tsx          # Desktop left navigation
-│   │   │   ├── BottomNav.tsx        # Mobile thumb-friendly navigation
-│   │   │   └── Header.tsx           # Dynamic greeting & workout resume banner
+│   │   │   ├── Sidebar.tsx                  # Desktop navigation with badges
+│   │   │   ├── BottomNav.tsx                # Mobile bottom navigation bar
+│   │   │   └── Header.tsx                   # Top status bar & user profile trigger
 │   │   └── workout/
-│   │       ├── ExerciseSetRow.tsx   # Mobile-friendly stepper row
-│   │       ├── RestTimerModal.tsx   # Auto countdown rest timer
-│   │       └── WorkoutSummaryModal.tsx # Celebration & PR summary modal
+│   │       ├── ExerciseSetRow.tsx           # Weight/rep stepper components
+│   │       ├── RestTimerModal.tsx           # Auto-countdown gym rest timer
+│   │       └── WorkoutSummaryModal.tsx      # Post-session celebration & PR recap
 │   ├── lib/
-│   │   ├── progressiveOverload.ts   # Double-progression engine & 1RM formulas
-│   │   ├── storage.ts               # Local persistence & JSON export/import
-│   │   ├── seedData.ts              # Hussain's 5-day routine & pre-seeded foods
-│   │   ├── supabase.ts              # Supabase client helper
-│   │   └── health/                  # Health Connect provider abstraction
+│   │   ├── seedData.ts                      # Canonical exercise & 12-week program data
+│   │   └── storage.ts                       # LocalStorage & Supabase sync layer
 │   └── types/
-│       └── index.ts                 # Strong TypeScript domain definitions
-└── README.md
+│       └── index.ts                         # Strict TypeScript domain interfaces
+├── tailwind.config.ts                       # GYM X color tokens & custom animations
+├── tsconfig.json                            # TypeScript strict mode configuration
+└── package.json                             # Dependencies & scripts
 ```
 
 ---
 
-## 4. Local Development Quick Start
+## 🚀 Quick Start & Installation
 
-### 1. Install Dependencies
+### Prerequisites
+- **Node.js**: v18.17.0 or higher
+- **npm** or **yarn** / **pnpm**
+- **Python 3.10+** (optional, only needed if re-generating exercise GIFs)
+
+### 1. Clone & Install Dependencies
 ```bash
+git clone https://github.com/hussainvali2003/fitness.git
+cd fitness
 npm install
 ```
 
-### 2. Run Automated Verification Tests
-```bash
-node scripts/test-logic.js
+### 2. Configure Environment Variables (Optional for Cloud Sync)
+Create a `.env.local` file in the root directory:
+```env
+# Optional Supabase Connection
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+DATABASE_URL=postgresql://postgres:your-password@db.your-project.supabase.co:5432/postgres
 ```
+> **Note**: GYM X operates with **100% functionality in offline mode** using local state and LocalStorage sync. Cloud credentials are only needed if you wish to sync across multiple remote devices.
 
-### 3. Start Development Server
+### 3. Launch Development Server
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser to experience GYM X.
 
 ---
 
-## 5. Connecting Supabase Free Tier
+## 🧪 Testing & Quality Assurance
 
-1. Sign up for a free account at [https://supabase.com](https://supabase.com) and create a new project.
-2. Under **Project Settings &rarr; Database**, copy your connection string (URI).
-3. In your project `.env.local` or Vercel dashboard:
-   ```env
-   DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@db.[YOUR-PROJECT-REF].supabase.co:5432/postgres?sslmode=require"
-   NEXT_PUBLIC_SUPABASE_URL="https://[YOUR-PROJECT-REF].supabase.co"
-   NEXT_PUBLIC_SUPABASE_ANON_KEY="your-anon-key-here"
-   ```
-4. Push the schema to Supabase:
-   ```bash
-   npx prisma db push
-   ```
+GYM X includes automated test suites covering algorithm math, data integrity, and asset verification:
 
----
+### Automated Unit Tests
+```bash
+npm run test
+```
+Verifies:
+- 1RM Epley calculations (`Weight * (1 + Reps / 30)`).
+- Double progression recommendation triggers (+2.5kg load increase upon meeting rep ceilings).
+- Rep maintenance rules when falling below target range.
+- 7-day rolling weight moving averages.
 
-## 6. Deploying to Vercel
+### TypeScript Strict Compilation
+```bash
+npx tsc --noEmit
+```
+Ensures 0 syntax, typing, or compilation errors across all pages and 3D components.
 
-1. Push your repository to GitHub.
-2. Import the repository in [Vercel](https://vercel.com).
-3. In the project settings, add the `DATABASE_URL` (your Supabase PostgreSQL URI) and `NEXT_PUBLIC_APP_URL`.
-4. Click **Deploy**. Vercel will automatically build and deploy the Next.js application.
-
----
-
-## 7. How Progressive Overload Works
-
-The application employs a **Double-Progression Model**:
-1. **Target Bracket**: E.g., Barbell Bench Press at $3 \times 6–10$ reps with 30 kg.
-2. **Rep Accumulation**: When logging sets, you aim to build reps across all 3 sets (e.g. Session 1: $8/8/7$, Session 2: $9/8/8$, Session 3: $10/9/9$).
-3. **Ceiling Breakthrough**: Once you hit the top of the bracket ($10/10/10$), the engine recommends $+2.5\text{ kg}$ (e.g. 32.5 kg) for $6–8$ reps for the next session.
-4. **Estimated 1RM**: Calculated deterministically via the Epley Formula:
-   $$\text{1RM} = \text{Weight} \times \left(1 + \frac{\text{Reps}}{30}\right)$$
+### Exercise Asset Verification
+```bash
+python scripts/verify_exercise_assets.py
+```
+Validates that every single exercise in the 5-day split has a valid, non-zero GIF animation on disk.
 
 ---
 
-## 8. Android Health Connect Architecture
+## 🎨 Design System & Color Tokens
 
-The application abstracts all health metrics behind the `IHealthDataProvider` interface (`src/lib/health/HealthDataProvider.ts`):
-- `ManualHealthProvider`: Active out-of-the-box for web browsers.
-- `HealthConnectProvider`: Prepared for wrapping the web app inside an Android Capacitor or Trusted Web Activity (TWA) shell with native Health Connect permissions (`READ_STEPS`, `READ_WEIGHT`, `READ_SLEEP`).
+| Token Name | Hex Code | Usage | Preview |
+|:---|:---|:---|:---:|
+| **Obsidian** | `#08080a` | Global App Background, Stage Cavity | `■` |
+| **Matte Charcoal** | `#111114` | Card Backgrounds, Subsections, Sidebars | `■` |
+| **Border Gray** | `#26262b` | Section Dividers, Card Outlines | `■` |
+| **Fiery Orange** | `#ee4d00` | Primary CTA, Active Tension, Agonist Muscle Glow | `■` |
+| **Bright Orange** | `#ff5500` | Button Hover States, Interactive Badges | `■` |
+| **Pure White** | `#ffffff` | Primary Headings, Stat Digits | `■` |
+| **Neutral Muted** | `#a1a1aa` | Form Cues, Subtitles, Secondary Text | `■` |
 
 ---
 
-## 9. Data Sovereignty & Backups
+## 📄 License & Attribution
 
-Go to **Settings &rarr; Export JSON Backup** at any time to download your complete personal fitness records. You can restore your data on any device using **Import Backup**.
+- **Creator & Athlete**: Hussain Vali
+- **Transformation Model**: MD Sadique Amin
+- **Design System**: GYM X Athletic Obsidian
+- **License**: MIT License &bull; Free for personal fitness tracking and adaptation.
