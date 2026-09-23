@@ -1,0 +1,189 @@
+// Prisma Schema for Hussain's Personal Fitness Dashboard
+// Supports PostgreSQL (Supabase) and SQLite local dev
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id               String   @id @default(uuid())
+  email            String   @unique
+  name             String   @default("Hussain")
+  age              Int      @default(22)
+  heightCm         Float    @default(167.0)
+  startingWeightKg Float    @default(82.0)
+  targetWeightKg   Float    @default(70.0)
+  stepTarget       Int      @default(10000)
+  calorieTarget    Int      @default(1850)
+  proteinTargetMin Int      @default(125)
+  proteinTargetMax Int      @default(140)
+  waterTargetL     Float    @default(3.0)
+  sleepTargetH     Float    @default(7.5)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  workoutSessions  WorkoutSession[]
+  bodyMeasurements BodyMeasurement[]
+  stepEntries      StepEntry[]
+  nutritionEntries NutritionEntry[]
+  waterEntries     WaterEntry[]
+  sleepEntries     SleepEntry[]
+  recoveryEntries  RecoveryEntry[]
+  personalRecords  PersonalRecord[]
+  progressPhotos   ProgressPhoto[]
+}
+
+model WorkoutSession {
+  id              String       @id @default(uuid())
+  userId          String
+  dayId           String
+  title           String
+  date            String       // YYYY-MM-DD
+  durationSeconds Int          @default(0)
+  totalVolumeKg   Float        @default(0)
+  completed       Boolean      @default(false)
+  notes           String?
+  createdAt       DateTime     @default(now())
+
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sets            WorkoutSet[]
+}
+
+model WorkoutSet {
+  id               String         @id @default(uuid())
+  workoutSessionId String
+  exerciseId       String
+  exerciseName     String
+  setNumber        Int
+  weightKg         Float
+  reps             Int
+  targetReps       String
+  targetWeight     Float
+  completed        Boolean        @default(false)
+  skipped          Boolean        @default(false)
+  rpe              Float?
+  isPr             Boolean        @default(false)
+  createdAt        DateTime       @default(now())
+
+  session          WorkoutSession @relation(fields: [workoutSessionId], references: [id], onDelete: Cascade)
+}
+
+model BodyMeasurement {
+  id          String   @id @default(uuid())
+  userId      String
+  date        String   // YYYY-MM-DD
+  weightKg    Float
+  waistCm     Float?
+  chestCm     Float?
+  neckCm      Float?
+  shouldersCm Float?
+  armsCm      Float?
+  thighsCm    Float?
+  hipsCm      Float?
+  bodyFatPct  Float?
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model StepEntry {
+  id          String   @id @default(uuid())
+  userId      String
+  date        String   // YYYY-MM-DD
+  steps       Int
+  targetSteps Int      @default(10000)
+  source      String   @default("manual")
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model NutritionEntry {
+  id          String   @id @default(uuid())
+  userId      String
+  date        String   // YYYY-MM-DD
+  foodName    String
+  quantity    Float    @default(1.0)
+  servingUnit String
+  calories    Float
+  proteinG    Float
+  carbsG      Float
+  fatG        Float
+  mealType    String   // breakfast, lunch, snack, dinner
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model WaterEntry {
+  id        String   @id @default(uuid())
+  userId    String
+  date      String   // YYYY-MM-DD
+  amountMl  Int
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SleepEntry {
+  id            String   @id @default(uuid())
+  userId        String
+  date          String   // YYYY-MM-DD
+  bedtime       String
+  wakeTime      String
+  durationHours Float
+  quality       Int      @default(3)
+  notes         String?
+  createdAt     DateTime @default(now())
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model RecoveryEntry {
+  id            String   @id @default(uuid())
+  userId        String
+  date          String   // YYYY-MM-DD
+  energyScore   Int      @default(3) // 1-5
+  sorenessScore Int      @default(3) // 1-5
+  stressScore   Int      @default(3) // 1-5
+  notes         String?
+  createdAt     DateTime @default(now())
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PersonalRecord {
+  id           String   @id @default(uuid())
+  userId       String
+  exerciseId   String
+  exerciseName String
+  metricType   String   // max_weight, max_reps, max_volume, estimated_1rm
+  value        Float
+  unit         String
+  date         String
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ProgressPhoto {
+  id         String   @id @default(uuid())
+  userId     String
+  date       String
+  weightKg   Float
+  weekNumber Int
+  frontUrl   String?
+  sideUrl    String?
+  backUrl    String?
+  notes      String?
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
